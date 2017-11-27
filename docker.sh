@@ -1,4 +1,3 @@
-
 alias dc="docker-compose"
 
 dosh() {
@@ -21,3 +20,4 @@ dipall() {
         fi
     done
 }
+
