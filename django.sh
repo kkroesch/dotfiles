@@ -1,13 +1,5 @@
-set -e # exit on errors
 
-function header {
-  echo ""
-  echo "$(tput setaf 6)$1$(tput sgr0)"
-  echo ""
-}
-
-# Shorthand for recurrent commands
-alias dj='python manage.py '
+source pretty.sh
 
 function bootstrap() {
 	# Setup basic project structure from template
@@ -20,18 +12,21 @@ function bootstrap() {
 
 	header "Creating project $PROJECT"
 
-	[ -x $(which virtualenv) ] || sudo pip install virtualenv
-
-	virtualenv env
+	python3 -m venv env
 	source env/bin/activate
 	pip install --upgrade pip
 
 	header 'Bootstrapping project'
 
 	pip install Django
-	django-admin.py startproject --template=https://github.com/pinax/pinax-project-account/zipball/master $PROJECT
+	django-admin.py startproject \
+  		--template=https://github.com/jpadilla/django-project-template/archive/master.zip \
+  		--name=Procfile \
+  		--extension=py,md,env \
+  		$PROJECT
 
 	cd $PROJECT
+	mv example.env .env
 	curl -o .gitignore https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
 	chmod +x manage.py
 
@@ -42,13 +37,5 @@ function bootstrap() {
 	./manage.py loaddata sites
 
 	header 'Done'
-
-
-	cat <<EOF
-	pip install django_suit
-	pip install djangorestframework
-	pip install markdown
-	pip install django-filter
-EOF
 }
 

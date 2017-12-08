@@ -1,10 +1,12 @@
 # Functions for colorized console output.
 
 function header {
+  # Colored output
   echo ""
   echo "$(tput setaf 6)$1$(tput sgr0)"
   echo ""
 }
+
 function box_out() {
   # First Argument is the title of the box
 	title=$1

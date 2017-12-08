@@ -1,9 +1,15 @@
+
+alias mkenv="python3.6 -m venv env"
+alias activate="source env/bin/activate"
+
 function pyinit() {
-	mkdir $1 && cd $1
-	virtualenv env
+	PROJECT=${1:-my_project}
+	mkdir $PROJECT && cd $PROJECT
+	mkenv
 	source env/bin/activate
-	curl -o .gitignore -L https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
+	curl -lso .gitignore -L https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
 	git init
+	pip install -U pip
 	pip freeze > requirements.txt
 	git add .
 }
