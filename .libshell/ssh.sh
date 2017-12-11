@@ -6,6 +6,11 @@ jump () {
 	ssh -At $JUMPHOST ssh -At $HOST
 }
 
+jcp () {
+	# Copy file via jump host
+	scp -oProxyJump=$JUMPHOST $1 $2
+}
+
 export SESSION_FILE=~/.ssh/session
 
 function sshagent() {
