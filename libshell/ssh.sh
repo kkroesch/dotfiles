@@ -1,7 +1,5 @@
 # SSH Agent Tools
 
-export JUMPHOST=hjmpsys01.sharedtcs.net
-
 jump () {
 	# Forward agent to jump host
 	HOST=$1 
