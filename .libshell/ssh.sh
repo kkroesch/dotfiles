@@ -3,12 +3,12 @@
 jump () {
 	# Forward agent to jump host
 	HOST=$1 
-	ssh -At $JUMPHOST ssh -At $HOST
+	ssh -At $JUMPHOST ssh -At $HOST 
 }
 
 jcp () {
 	# Copy file via jump host
-	scp -oProxyJump=$JUMPHOST $1 $2
+	scp -oProxyJump=$JUMPHOST $1 $2 2> /dev/null
 }
 
 export SESSION_FILE=~/.ssh/session
