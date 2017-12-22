@@ -41,5 +41,5 @@ source ~/.libshell/currency.sh
 
 # CDPATH
 setopt auto_cd
-cdpath=($HOME/Documents $HOME)
+cdpath=($HOME/Documents/ $HOME/Documents/GitHub $HOME)
 

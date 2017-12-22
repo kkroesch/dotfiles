@@ -3,7 +3,8 @@
 jump () {
 	# Forward agent to jump host
 	HOST=$1 
-	ssh -At $JUMPHOST ssh -At $HOST 
+	shift
+	ssh -o=LogLevel=ERROR -At $JUMPHOST ssh -At $HOST $@
 }
 
 jcp () {
