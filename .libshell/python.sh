@@ -9,7 +9,6 @@ function pyinit() {
 	mkenv
 	source .venv/bin/activate
 	curl -lso .gitignore -L https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
-  echo .venv >> .gitignore
 	git init
 	pip install -U pip
 	pip freeze > requirements.txt
