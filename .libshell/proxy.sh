@@ -13,4 +13,3 @@ function noproxy() {
     unset http_proxy
     unset NO_PROXY
 }
-
