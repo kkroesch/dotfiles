@@ -4,8 +4,7 @@ alias activate="source .venv/bin/activate"
 alias venv="python3.6 -m venv .venv && source .venv/bin/activate"
 
 function pyinit() {
-	PROJECT=${1:-my_project}
-	mkdir $PROJECT && cd $PROJECT
+  # Make a Python project from current directory including virtual environment and Git repository
 	mkenv
 	source .venv/bin/activate
 	curl -lso .gitignore -L https://raw.githubusercontent.com/github/gitignore/master/Python.gitignore
