@@ -2,6 +2,7 @@
 alias mkenv="python3.6 -m venv .venv"
 alias activate="source .venv/bin/activate"
 alias venv="python3.6 -m venv .venv && source .venv/bin/activate"
+alias dj="./manage.py"
 
 function pyinit() {
   # Make a Python project from current directory including virtual environment and Git repository
