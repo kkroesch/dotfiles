@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/tzhkrka5/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -48,13 +48,14 @@ source ~/.libshell/proxy.sh
 source ~/.libshell/currency.sh
 source ~/.libshell/macos.sh
 source ~/.libshell/crypto.sh
+source ~/.libshell/db.sh
+source ~/.libshell/vpn.sh
 
 alias lock="pmset displaysleepnow"
+alias please="sudo"
 # Use zmv: https://coderwall.com/p/yepegw/mass-renaming-files-with-zmv-zsh
 autoload -U zmv
 
 # CDPATH
 setopt auto_cd
 cdpath=($HOME/Documents/ $HOME/Documents/GitHub $HOME)
-
-[ -n "$TMUX" ] && PS1="TMUX $PS1"
