@@ -20,6 +20,9 @@ dipall() {
     done
 }
 
+# Run SQL client on dockerized Elasticsearch
+alias doesql="docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-sql-cli"
+
 docker-rmimages() {
 	for image in $(docker images -q)
 	do
