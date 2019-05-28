@@ -56,6 +56,9 @@ alias please="sudo"
 # Use zmv: https://coderwall.com/p/yepegw/mass-renaming-files-with-zmv-zsh
 autoload -U zmv
 
+# Evaluate .direnv when entering directory
+eval "$(direnv hook zsh)"
+
 # CDPATH
 setopt auto_cd
 cdpath=($HOME/Documents/ $HOME/Documents/GitHub $HOME)
