@@ -2,12 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
+export ZSH=/Users/tzhkrka5/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -18,9 +18,10 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python docker django vagrant cloudfoundry mvn extract)
+plugins=(sudo git python docker django vagrant cloudfoundry)
 
 source $ZSH/oh-my-zsh.sh
+source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Key Bindings
 # ctrl+b/f or ctrl+left/right : move word by word (backward/forward)
@@ -50,9 +51,11 @@ source ~/.libshell/macos.sh
 source ~/.libshell/crypto.sh
 source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
+source ~/.libshell/gbt.sh
 
 alias lock="pmset displaysleepnow"
 alias please="sudo"
+alias la="lsd -al"
 # Use zmv: https://coderwall.com/p/yepegw/mass-renaming-files-with-zmv-zsh
 autoload -U zmv
 
