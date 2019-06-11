@@ -1,27 +1,27 @@
 # Install tools & dependnecies on Mac OS
 brew install bat \
-		 cloudfoundry-cli \
-		 ctop \
-		 direnv \
-		 fd \
-		 fx \
-		 gbt \
-		 gettext \
-		 gpg \
-		 gradle \
-		 graphviz \
-		 hcloud \
-		 htop \
-		 hub \
-		 imagemagick \
-		 lsd \
-		 mitmproxy \
-		 neovim \
-		 nmap \
-		 pass \
-		 restic \
-     ripgrep \
-		 sshuttle \
-		 tmux \
-		 watch \
-		 wget 
+    cloudfoundry-cli \
+    ctop \
+    direnv \
+    fd \
+    fx \
+    gbt \
+    gettext \
+    gpg \
+    gradle \
+    graphviz \
+    hcloud \
+    htop \
+    hub \
+    imagemagick \
+    lsd \
+    mitmproxy \
+    neovim \
+    nmap \
+    pass \
+    restic \
+    ripgrep \
+    sshuttle \
+    tmux \
+    watch \
+    wget 
