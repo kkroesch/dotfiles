@@ -50,7 +50,9 @@ source ~/.libshell/macos.sh
 source ~/.libshell/crypto.sh
 source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
-#source ~/.libshell/gbt.sh
+[[ -a $(which gbt) ]] && source ~/.libshell/gbt.sh
+
+[[ -a $(which jira) ]] && eval "$(jira --completion-script-zsh)"
 
 alias lock="pmset displaysleepnow"
 alias please="sudo"
@@ -66,3 +68,4 @@ setopt auto_cd
 cdpath=($HOME/Documents/ $HOME/Documents/GitHub $HOME)
 
 test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
+

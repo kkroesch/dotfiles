@@ -14,6 +14,7 @@ brew install bat \
     htop \
     hub \
     imagemagick \
+    go-jira \
     lsd \
     mitmproxy \
     neovim \
