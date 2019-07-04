@@ -26,3 +26,15 @@ brew install bat \
     tmux \
     watch \
     wget 
+
+brew cask install font-hack-nerd-font \
+    brave-browser \
+    notable \
+    dbeaver-community \
+    docker \
+    gpg-suite \
+    iterm2 \
+    visual-studio-code \
+    pycharm \
+    webstorm 
+
