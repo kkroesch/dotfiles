@@ -23,6 +23,7 @@ brew install bat \
     restic \
     ripgrep \
     sshuttle \
+    terraform \
     tmux \
     watch \
     wget 
@@ -35,6 +36,7 @@ brew cask install font-hack-nerd-font \
     gpg-suite \
     iterm2 \
     visual-studio-code \
+    vagrant \
     pycharm \
     webstorm 
 

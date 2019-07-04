@@ -18,7 +18,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python docker django vagrant cloudfoundry)
+plugins=(sudo git python docker django vagrant cloudfoundry terraform)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -50,9 +50,7 @@ source ~/.libshell/macos.sh
 source ~/.libshell/crypto.sh
 source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
-[[ -a $(which gbt) ]] && source ~/.libshell/gbt.sh
-
-[[ -a $(which jira) ]] && eval "$(jira --completion-script-zsh)"
+#source ~/.libshell/gbt.sh
 
 alias lock="pmset displaysleepnow"
 alias please="sudo"
@@ -68,4 +66,3 @@ setopt auto_cd
 cdpath=($HOME/Documents/ $HOME/Documents/GitHub $HOME)
 
 test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
-
