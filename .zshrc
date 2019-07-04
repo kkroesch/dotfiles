@@ -51,6 +51,7 @@ source ~/.libshell/crypto.sh
 source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
 #source ~/.libshell/gbt.sh
+#source ~/.libshell/whiteboard.sh
 
 alias lock="pmset displaysleepnow"
 alias please="sudo"
