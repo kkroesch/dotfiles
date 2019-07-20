@@ -26,7 +26,8 @@ brew install bat \
     terraform \
     tmux \
     watch \
-    wget 
+    wget \
+    zsh-syntax-highlighting
 
 brew cask install font-hack-nerd-font \
     brave-browser \
