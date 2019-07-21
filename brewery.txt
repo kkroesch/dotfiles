@@ -20,6 +20,7 @@ brew install bat \
     neovim \
     nmap \
     pass \
+    pwgen \
     restic \
     ripgrep \
     sshuttle \
