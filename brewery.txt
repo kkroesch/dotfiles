@@ -20,13 +20,16 @@ brew install bat \
     neovim \
     nmap \
     pass \
+    pwgen \
     restic \
     ripgrep \
     sshuttle \
     terraform \
     tmux \
+    tree \
     watch \
-    wget 
+    wget \
+    zsh-syntax-highlighting
 
 brew cask install font-hack-nerd-font \
     brave-browser \
@@ -35,6 +38,7 @@ brew cask install font-hack-nerd-font \
     docker \
     gpg-suite \
     iterm2 \
+    qtpass \
     visual-studio-code \
     vagrant \
     pycharm \

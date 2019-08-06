@@ -21,7 +21,8 @@ HIST_STAMPS="dd.mm.yyyy"
 plugins=(sudo git python docker django vagrant cloudfoundry terraform)
 
 source $ZSH/oh-my-zsh.sh
-source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# INSTALL: git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Key Bindings
 # ctrl+b/f or ctrl+left/right : move word by word (backward/forward)
@@ -52,6 +53,7 @@ source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
 #source ~/.libshell/gbt.sh
 #source ~/.libshell/whiteboard.sh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 alias lock="pmset displaysleepnow"
 alias please="sudo"
