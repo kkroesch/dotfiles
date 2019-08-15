@@ -1,5 +1,3 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=~/.oh-my-zsh
@@ -18,11 +16,10 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python docker django vagrant cloudfoundry terraform)
+plugins=(sudo git python docker vagrant cloudfoundry terraform vscode)
 
 source $ZSH/oh-my-zsh.sh
-# INSTALL: git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-source $ZSH_CUSTOM/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Key Bindings
 # ctrl+b/f or ctrl+left/right : move word by word (backward/forward)
@@ -52,12 +49,16 @@ source ~/.libshell/crypto.sh
 source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
 #source ~/.libshell/gbt.sh
-#source ~/.libshell/whiteboard.sh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.libshell/development.sh
+
+# Add additinal functions
+fpath=( ~/.zfunc "${fpath[@]}" )
 
 alias lock="pmset displaysleepnow"
 alias please="sudo"
+alias ls="lsd"
 alias la="lsd -al"
+
 # Use zmv: https://coderwall.com/p/yepegw/mass-renaming-files-with-zmv-zsh
 autoload -U zmv
 
