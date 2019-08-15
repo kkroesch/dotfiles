@@ -2,9 +2,9 @@
     name = Karsten Kroesch
     email = kkroesch@icloud.com
 [http]
-    proxy = clientproxy.corproot.net:8079
+    # proxy = clientproxy.corproot.net:8079
 [https]
-    proxy = clientproxy.corproot.net:8079
+    # proxy = clientproxy.corproot.net:8079
 [core]
   editor = vi
   excludesfile = ~/.gitignore
