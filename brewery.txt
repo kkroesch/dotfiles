@@ -1,0 +1,46 @@
+# Install tools & dependnecies on Mac OS
+brew install bat \
+    cloudfoundry-cli \
+    ctop \
+    direnv \
+    fd \
+    fx \
+    gbt \
+    gettext \
+    gpg \
+    gradle \
+    graphviz \
+    hcloud \
+    htop \
+    hub \
+    imagemagick \
+    go-jira \
+    lsd \
+    mitmproxy \
+    neovim \
+    nmap \
+    pass \
+    pwgen \
+    restic \
+    ripgrep \
+    sshuttle \
+    terraform \
+    tmux \
+    tree \
+    watch \
+    wget \
+    zsh-syntax-highlighting
+
+brew cask install font-hack-nerd-font \
+    brave-browser \
+    notable \
+    dbeaver-community \
+    docker \
+    gpg-suite \
+    iterm2 \
+    qtpass \
+    visual-studio-code \
+    vagrant \
+    pycharm \
+    webstorm 
+

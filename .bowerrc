@@ -1,5 +1,0 @@
-{
-  "directory": "bower_components", 
-  "proxy": "http://clientproxy.corproot.net:8079",
-  "https-proxy": "http://clientproxy.corproot.net:8079"
-}
