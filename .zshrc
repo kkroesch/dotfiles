@@ -1,13 +1,11 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/tzhkrka5/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="agnoster"
+ZSH_THEME="robbyrussell"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -18,7 +16,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python docker django vagrant cloudfoundry)
+plugins=(sudo git python docker vagrant cloudfoundry terraform colored-man-pages)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -42,7 +40,6 @@ export SSH_KEY_PATH="~/.ssh/id_ecdsa"
 
 export JUMPHOST=hjmpsys01.sharedtcs.net
 source ~/.libshell/ssh.sh
-
 source ~/.libshell/python.sh
 source ~/.libshell/docker.sh
 source ~/.libshell/proxy.sh
@@ -51,11 +48,17 @@ source ~/.libshell/macos.sh
 source ~/.libshell/crypto.sh
 source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
-source ~/.libshell/gbt.sh
+#source ~/.libshell/gbt.sh
+#source ~/.libshell/development.sh
+
+# Add additinal functions
+fpath=( ~/.zfunc "${fpath[@]}" )
 
 alias lock="pmset displaysleepnow"
 alias please="sudo"
+alias ls="lsd"
 alias la="lsd -al"
+
 # Use zmv: https://coderwall.com/p/yepegw/mass-renaming-files-with-zmv-zsh
 autoload -U zmv
 
@@ -65,3 +68,5 @@ eval "$(direnv hook zsh)"
 # CDPATH
 setopt auto_cd
 cdpath=($HOME/Documents/ $HOME/Documents/GitHub $HOME)
+
+test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
