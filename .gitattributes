@@ -1,1 +1,2 @@
 .gitconfig merge=ours
+.jira.d merge=ours
