@@ -4,12 +4,8 @@
 	process = git-lfs filter-process
 	required = true
 [user]
-	name = Kroesch Karsten, INI-ONE-SCC-VMI
+	name = Karsten Kroesch
 	email = Karsten.Kroesch@swisscom.com
-[http]
-  proxy = clientproxy.corproot.net:8079
-[https]
-  proxy = clientproxy.corproot.net:8079
 [help]
   autocorrect = 5
 [merge "ours"]
