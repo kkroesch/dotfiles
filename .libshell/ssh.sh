@@ -28,3 +28,8 @@ function ssh-reconnect() {
 }
 [ -f $SESSION_FILE ] && ssh-reconnect
 
+function ssp() {
+  # Login with password instead of public key (requires sshpass and .ssh/password)
+  sshpass -f .ssh/password ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no $1
+}
+
