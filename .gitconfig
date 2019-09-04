@@ -1,30 +1,38 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
 [user]
-    name = Karsten Kroesch
-    email = kkroesch@icloud.com
-[core]
-  editor = vi
-  excludesfile = ~/.gitignore
-  autocrlf = input
-[color]
-  branch = auto
-  diff = auto
-  interactive = auto
-  status = auto
-[web]
-  browser = google-chrome
-[credential]
-  helper = osxkeychain
-[push]
-  default = simple
-[merge]
-  tool = kdiff3
-[difftool]
-  prompt = false
+	name = Kroesch Karsten, INI-ONE-SCC-VMI
+	email = Karsten.Kroesch@swisscom.com
+[http]
+  proxy = clientproxy.corproot.net:8079
+[https]
+  proxy = clientproxy.corproot.net:8079
+[help]
+  autocorrect = 5
+[merge "ours"]
+	driver = true
 [alias]
-  c = commit
-  ca = commit -a
-  cm = commit -m
-  cam = commit -am
-  d = diff
+  last = log -1 --stat
+  cp = cherry-pick
+  co = checkout
+  cl = clone
+  ci = commit
+  st = status -sb
+  br = branch
+  unstage = reset HEAD --
   dc = diff --cached
-  l = log --graph --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset" --abbrev-commit
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %Cblue<%an>%Creset' --abbrev-commit --date=relative --all
+  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+[color]
+  ui = true
+[core]
+	excludesfile = /Users/tzhkrka5/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

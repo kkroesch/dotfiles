@@ -16,7 +16,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python docker vagrant cloudfoundry terraform vscode)
+plugins=(sudo git python docker vagrant cloudfoundry terraform colored-man-pages)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -49,7 +49,7 @@ source ~/.libshell/crypto.sh
 source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
 #source ~/.libshell/gbt.sh
-source ~/.libshell/development.sh
+#source ~/.libshell/development.sh
 
 # Add additinal functions
 fpath=( ~/.zfunc "${fpath[@]}" )
