@@ -12,6 +12,10 @@ jcp () {
 	scp -oProxyJump=$JUMPHOST $1 $2 2> /dev/null
 }
 
+sushi() {
+  ssh -At nx ssh -At $1.sharedit.ch sudo su -
+}
+
 export SESSION_FILE=~/.ssh/session
 
 function sshagent() {
