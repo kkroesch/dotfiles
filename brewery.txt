@@ -8,6 +8,7 @@ brew install bat \
     gbt \
     gettext \
     gpg \
+    gist \
     gradle \
     graphviz \
     hcloud \
