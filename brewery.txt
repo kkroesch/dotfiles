@@ -20,6 +20,7 @@ brew install bat \
     mitmproxy \
     neovim \
     nmap \
+    pandoc \
     pass \
     pwgen \
     restic \

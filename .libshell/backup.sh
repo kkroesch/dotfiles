@@ -1,11 +1,25 @@
-export RESTIC_REPOSITORY=${HOME}/myCloud/backup
-export RESTIC_PASSWORD_FILE=${HOME}/.resticpassword
-#export RESTIC_PASSWORD=$(pass restic)
+export BORG_REPO=~/myCloud/backup/github
+export BORG_PASSPHRASE=$(pass macbook-15/backup)
 
-function backup() {
-    restic backup --exclude-file="${HOME}/.libshell/backup-exclude.txt" $1
-}
+export ARCHIVE=$(date +'%a-%Y-%m-%d')
 
-function snapshots() {
-    restic snapshots
-}
+/usr/bin/borg create     \
+    --verbose            \
+    --filter AME         \
+    --list               \
+    --stats              \
+    --show-rc            \
+    --compression lz4    \
+    --exclude-caches     \
+    --exclude=.venv      \
+    --exclude=.vagrant   \
+    --exclude=*.pyc      \
+    ::${ARCHIVE}         \
+    /Users/tzhkrka5/Documents/GitHub
+
+/usr/bin/borg prune     \
+    --list              \
+    --show-rc           \
+    --keep-daily    7   \
+    --keep-weekly   4   \
+    --keep-monthly  6
