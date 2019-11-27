@@ -33,7 +33,7 @@ export PATH=~/.npm-packages/bin:$PATH
 export PATH=/usr/local/mysql/bin:$PATH
 
 # Script Tools
-export PATH=~/.libshell/tools:$PATH
+export PATH=~/.libshell/bin:$PATH
 
 # SSH Agent Tools
 export SSH_KEY_PATH="~/.ssh/id_ecdsa"
