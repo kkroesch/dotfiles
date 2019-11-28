@@ -1,5 +1,5 @@
 export BORG_REPO=~/myCloud/backup/github
-export BORG_PASSCOMMAND='pass show macbook-15/backup'
+export BORG_PASSCOMMAND='/usr/local/bin/pass show macbook-15/backup'
 
 prog_name=$(basename $0)
   
