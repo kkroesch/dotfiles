@@ -1,0 +1,94 @@
+[ -z ${PROJECT} ]    && PROJECT="BWMAIL"
+[ -z ${REPOSITORY} ] && REPOSITORY="support-portal"
+
+prog_name=$(basename $0)
+  
+function sub_help(){
+    echo "Usage: $prog_name <subcommand> [options]\n"
+    echo "Subcommands:"
+    echo "    info           Show information about environment."
+    echo "    start <ISSUE>  Start working on an issue."
+    echo "    fix <ISSUE>    Commits a fix and comments a link to commit message in Jira."
+    echo "    stage <ISSUE>  Deploy to stage, comment timestamp in Jira and assign to reporter for testing."
+    echo "    prod <ISSUE>   Deploy to production and comment timestamp in Jira."
+    echo ""
+    echo "For help with each subcommand run:"
+    echo "$prog_name <subcommand> -h|--help"
+    echo ""
+}
+
+function sub_info() {
+    ISSUE=$1
+    echo "Repository:     $REPOSITORY"
+    echo "Project:        $PROJECT"
+    [ -z ${ISSUE} ] || echo "Issue:          $ISSUE"
+    cf target
+}
+
+function sub_start() {
+    ISSUE=$1
+    if [ -z ${ISSUE} ]; then
+        echo "Need to specify Jira issue. Exiting."
+        return 1
+    fi
+    # git checkout -b issue/$ISSUE
+    jira assign $ISSUE $USER
+    jira transition Implementation $ISSUE --noedit
+}
+
+function sub_fix() {
+    ISSUE=$1
+    if [ -z ${ISSUE} ]; then
+        echo "Need to specify Jira issue. Exiting."
+        return 1
+    fi
+    last_commit=$(git log -n1 | head -1 | cut -d' ' -f2)
+    short_hash=${last_commit:0:12}
+    link="https://git.swisscom.com/projects/$PROJECT/repos/$REPOSITORY/commits/$last_commit"
+    output="Fixed in [$short_hash|$link]"
+    jira comment $ISSUE -m "$output" --noedit
+}
+
+function sub_stage() {
+    ISSUE=$1
+    if [ -z ${ISSUE} ]; then
+        echo "Need to specify Jira issue. Exiting."
+        return 1
+    fi
+    timestamp=$(date +' on %d.%m. at %H:%M')
+    #cf push && 
+    jira comment $ISSUE -m "Staged $timestamp" --noedit
+    reporter=$(jira $ISSUE | grep reporter | cut -d' ' -f2)
+    jira transition Testing $ISSUE --noedit
+    jira assign $ISSUE $reporter
+}
+
+function sub_prod() {
+    ISSUE=$1
+    if [ -z ${ISSUE} ]; then
+        echo "Need to specify Jira issue. Exiting."
+        return 1
+    fi
+    echo "Not implemented"
+}
+
+subcommand=$1
+hash jira 2>/dev/null || echo >&2 "Go-Jira is not installed. Get it on Github: https://github.com/go-jira/jira"
+hash git 2>/dev/null  || echo >&2 "Git is not installed. You are no developer, are you?"
+hash cf 2>/dev/null   || echo >&2 "Cloudfoundry toolbelt is not installed. Needed for deployments."
+
+
+case $subcommand in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "       Run '$prog_name --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac
