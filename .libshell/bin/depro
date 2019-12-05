@@ -1,5 +1,26 @@
+#!/usr/bin/env zsh
+##########################################
+# DePro -- Supports Development Process
+#
+
+# Set these in .envrc
 [ -z ${PROJECT} ]    && PROJECT="BWMAIL"
 [ -z ${REPOSITORY} ] && REPOSITORY="support-portal"
+[ -z ${EPIC} ] && EPIC=BWMAIL-2008
+
+# Utility functions
+function error() {
+    echo -e "\e[31m\e[1mERROR: \e[0m\e[31m$@\e[0m"
+}
+
+function warning() {
+    echo -e "\e[33mWARNING: $@\e[0m"
+}
+
+function fatal() {
+    error $1
+    exit 1
+}
 
 prog_name=$(basename $0)
   
@@ -7,6 +28,7 @@ function sub_help(){
     echo "Usage: $prog_name <subcommand> [options]\n"
     echo "Subcommands:"
     echo "    info           Show information about environment."
+    echo "    todo           Show open tasks for the epic."
     echo "    start <ISSUE>  Start working on an issue."
     echo "    fix <ISSUE>    Commits a fix and comments a link to commit message in Jira."
     echo "    stage <ISSUE>  Deploy to stage, comment timestamp in Jira and assign to reporter for testing."
@@ -25,12 +47,13 @@ function sub_info() {
     cf target
 }
 
+function sub_todo() {
+    jira epic list $EPIC
+}
+
 function sub_start() {
     ISSUE=$1
-    if [ -z ${ISSUE} ]; then
-        echo "Need to specify Jira issue. Exiting."
-        return 1
-    fi
+    [ -z ${ISSUE} ] && fatal "Need to specify Jira issue. Exiting."
     # git checkout -b issue/$ISSUE
     jira assign $ISSUE $USER
     jira transition Implementation $ISSUE --noedit
@@ -38,10 +61,7 @@ function sub_start() {
 
 function sub_fix() {
     ISSUE=$1
-    if [ -z ${ISSUE} ]; then
-        echo "Need to specify Jira issue. Exiting."
-        return 1
-    fi
+    [ -z ${ISSUE} ] && fatal "Need to specify Jira issue. Exiting."
     last_commit=$(git log -n1 | head -1 | cut -d' ' -f2)
     short_hash=${last_commit:0:12}
     link="https://git.swisscom.com/projects/$PROJECT/repos/$REPOSITORY/commits/$last_commit"
@@ -51,12 +71,10 @@ function sub_fix() {
 
 function sub_stage() {
     ISSUE=$1
-    if [ -z ${ISSUE} ]; then
-        echo "Need to specify Jira issue. Exiting."
-        return 1
-    fi
+    [ -z ${ISSUE} ] && fatal "Need to specify Jira issue. Exiting."
     timestamp=$(date +' on %d.%m. at %H:%M')
-    #cf push && 
+    # cf target -s stage
+    # cf push && 
     jira comment $ISSUE -m "Staged $timestamp" --noedit
     reporter=$(jira $ISSUE | grep reporter | cut -d' ' -f2)
     jira transition Testing $ISSUE --noedit
@@ -65,18 +83,17 @@ function sub_stage() {
 
 function sub_prod() {
     ISSUE=$1
-    if [ -z ${ISSUE} ]; then
-        echo "Need to specify Jira issue. Exiting."
-        return 1
-    fi
+    [ -z ${ISSUE} ] && fatal "Need to specify Jira issue. Exiting."
+    # cf target -s production
+    warning "You are on production target."
     echo "Not implemented"
 }
 
 subcommand=$1
-hash jira 2>/dev/null || echo >&2 "Go-Jira is not installed. Get it on Github: https://github.com/go-jira/jira"
-hash git 2>/dev/null  || echo >&2 "Git is not installed. You are no developer, are you?"
-hash cf 2>/dev/null   || echo >&2 "Cloudfoundry toolbelt is not installed. Needed for deployments."
-
+warning "You are on production target."
+hash jira 2>/dev/null || fatal "Go-Jira is not installed. Get it on Github: https://github.com/go-jira/jira"
+hash git 2>/dev/null  || fatal "Git is not installed. You are no developer, are you?"
+hash cf 2>/dev/null   || fatal "Cloudfoundry toolbelt is not installed. Needed for deployments."
 
 case $subcommand in
     "" | "-h" | "--help")
