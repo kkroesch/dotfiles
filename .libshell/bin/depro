@@ -3,12 +3,17 @@
 # DePro -- Supports Development Process
 #
 
+prog_name=$(basename $0)
+
 # Set these in .envrc
 [ -z ${PROJECT} ]    && PROJECT="BWMAIL"
 [ -z ${REPOSITORY} ] && REPOSITORY="support-portal"
 [ -z ${EPIC} ] && EPIC=BWMAIL-2008
 
+#
 # Utility functions
+#
+
 function error() {
     echo -e "\e[31m\e[1mERROR: \e[0m\e[31m$@\e[0m"
 }
@@ -22,8 +27,15 @@ function fatal() {
     exit 1
 }
 
-prog_name=$(basename $0)
-  
+# Check Requirements
+hash jira 2>/dev/null || fatal "Go-Jira is not installed. Get it on Github: https://github.com/go-jira/jira"
+hash git 2>/dev/null  || fatal "Git is not installed. You are no developer, are you?"
+hash cf 2>/dev/null   || fatal "Cloudfoundry toolbelt is not installed. Needed for deployments."
+
+#
+# Sub-Commands
+#
+
 function sub_help(){
     echo "Usage: $prog_name <subcommand> [options]\n"
     echo "Subcommands:"
@@ -90,10 +102,6 @@ function sub_prod() {
 }
 
 subcommand=$1
-warning "You are on production target."
-hash jira 2>/dev/null || fatal "Go-Jira is not installed. Get it on Github: https://github.com/go-jira/jira"
-hash git 2>/dev/null  || fatal "Git is not installed. You are no developer, are you?"
-hash cf 2>/dev/null   || fatal "Cloudfoundry toolbelt is not installed. Needed for deployments."
 
 case $subcommand in
     "" | "-h" | "--help")
