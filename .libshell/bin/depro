@@ -14,8 +14,12 @@ prog_name=$(basename $0)
 # Utility functions
 #
 
+function ok() {
+    echo -e "\e[1;32m$@\e[0m"
+}
+
 function error() {
-    echo -e "\e[31m\e[1mERROR: \e[0m\e[31m$@\e[0m"
+    echo -e "\e[1;31mERROR: \e[0m\e[31m$@\e[0m"
 }
 
 function warning() {
@@ -31,6 +35,8 @@ function fatal() {
 hash jira 2>/dev/null || fatal "Go-Jira is not installed. Get it on Github: https://github.com/go-jira/jira"
 hash git 2>/dev/null  || fatal "Git is not installed. You are no developer, are you?"
 hash cf 2>/dev/null   || fatal "Cloudfoundry toolbelt is not installed. Needed for deployments."
+hash pass 2>/dev/null || warning "Passwordstore is not installed. You might have to type passwords manually."
+hash jq 2>/dev/null   || warning "Jq is not installed. Some formatting will be ugly or not work at all."
 
 #
 # Sub-Commands
@@ -40,9 +46,12 @@ function sub_help(){
     echo "Usage: $prog_name <subcommand> [options]\n"
     echo "Subcommands:"
     echo "    info           Show information about environment."
+    echo "    project        Show repositories in Bitbucket project."
     echo "    todo           Show open tasks for the epic."
-    echo "    start <ISSUE>  Start working on an issue."
+    echo "    start <ISSUE>  Start working on an issue. Will branch and push branch to remote."
     echo "    fix <ISSUE>    Commits a fix and comments a link to commit message in Jira."
+    echo "    pr             Create pull request for current branch destinating to development branch."
+    echo "    prs            List pull requests."
     echo "    stage <ISSUE>  Deploy to stage, comment timestamp in Jira and assign to reporter for testing."
     echo "    prod <ISSUE>   Deploy to production and comment timestamp in Jira."
     echo ""
@@ -57,6 +66,12 @@ function sub_info() {
     echo "Project:        $PROJECT"
     [ -z ${ISSUE} ] || echo "Issue:          $ISSUE"
     cf target
+}
+
+function sub_project() {
+    curl -u $USER:$(pass scs/corproot) \
+        https://git.swisscom.com/rest/api/1.0/projects/$PROJECT/repos | 
+        jq '.values[] | .name + ":  " + .description'
 }
 
 function sub_todo() {
@@ -81,6 +96,46 @@ function sub_fix() {
     jira comment $ISSUE -m "$output" --noedit
 }
 
+function sub_pr() {
+    read -r -d '' pull_request <<-EOM
+    {
+        "title": "Sample Pull Request",
+        "fromRef": {
+            "id": "refs/heads/development",
+            "repository": {
+                "slug": "${REPOSITORY}",
+                "name": null,
+                "project": {
+                    "key": "${PROJECT}"
+                }
+            }
+        },
+        "toRef": {
+            "id": "refs/heads/master",
+            "repository": {
+                "slug": "${REPOSITORY}",
+                "name": null,
+                "project": {
+                    "key": "${PROJECT}"
+                }
+            }
+        }
+    }
+EOM
+    curl https://git.swisscom.com/rest/api/1.0/projects/$PROJECT/repos/$REPOSITORY/pull-requests \
+        -u $USER:$(pass scs/corproot) \
+        --header 'Content-Type: application/json' \
+        -X POST \
+        --data $pull_request |
+    jq '.title + " " + .state'
+}
+
+function sub_prs() {
+    curl https://git.swisscom.com/rest/api/1.0/projects/$PROJECT/repos/$REPOSITORY/pull-requests \
+        -u $USER:$(pass scs/corproot) |
+    jq '.values[] | .title + " " + .state + " " + .links.self[0].href'
+}
+
 function sub_stage() {
     ISSUE=$1
     [ -z ${ISSUE} ] && fatal "Need to specify Jira issue. Exiting."
@@ -99,6 +154,7 @@ function sub_prod() {
     # cf target -s production
     warning "You are on production target."
     echo "Not implemented"
+    ok "Now productive"
 }
 
 subcommand=$1
