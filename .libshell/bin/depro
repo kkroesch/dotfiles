@@ -1,7 +1,18 @@
 #!/usr/bin/env zsh
+
 ##########################################
-# DePro -- Supports Development Process
-#
+##  _____                                
+## |  __ \                               
+## | |  | |   ___   _ __    _ __    ___  
+## | |  | |  / _ \ | '_ \  | '__|  / _ \ 
+## | |__| | |  __/ | |_) | | |    | (_) |
+## |_____/   \___| | .__/  |_|     \___/ 
+##                 | |                   
+##                 |_|                   
+## 
+## -- Supports Development Process
+##
+##########################################
 
 prog_name=$(basename $0)
 
@@ -50,7 +61,7 @@ function sub_help(){
     echo "    todo           Show open tasks for the epic."
     echo "    start <ISSUE>  Start working on an issue. Will branch and push branch to remote."
     echo "    fix <ISSUE>    Commits a fix and comments a link to commit message in Jira."
-    echo "    pr             Create pull request for current branch destinating to development branch."
+    echo "    pr <TITLE>     Create pull request with given TITLE for current branch destinating to development branch."
     echo "    prs            List pull requests."
     echo "    stage <ISSUE>  Deploy to stage, comment timestamp in Jira and assign to reporter for testing."
     echo "    prod <ISSUE>   Deploy to production and comment timestamp in Jira."
@@ -97,9 +108,11 @@ function sub_fix() {
 }
 
 function sub_pr() {
+    TITLE=$1
+    [ -z ${TITLE} ] && fatal "Please specify a title. Exiting."
     read -r -d '' pull_request <<-EOM
     {
-        "title": "Sample Pull Request",
+        "title": "${TITLE}",
         "fromRef": {
             "id": "refs/heads/development",
             "repository": {
