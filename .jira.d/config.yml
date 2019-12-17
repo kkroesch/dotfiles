@@ -1,0 +1,2 @@
+endpoint: https://jira.swisscom.com
+password-source: keyring

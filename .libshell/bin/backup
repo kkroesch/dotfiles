@@ -1,0 +1,59 @@
+export BORG_REPO=~/myCloud/backup/github
+export BORG_PASSCOMMAND='/usr/local/bin/pass show macbook-15/backup'
+
+prog_name=$(basename $0)
+  
+function sub_help(){
+    echo "Usage: $prog_name <subcommand> [options]\n"
+    echo "Subcommands:"
+    echo "    create    Creates a new backup archive for today"
+    echo "    list      List archives"
+    echo ""
+    echo "For help with each subcommand run:"
+    echo "$prog_name <subcommand> -h|--help"
+    echo ""
+}
+
+function sub_create() {
+    export ARCHIVE=$(date +'%a-%Y-%m-%d')
+    /usr/local/bin/borg create     \
+        --verbose            \
+        --filter AME         \
+        --list               \
+        --stats              \
+        --show-rc            \
+        --compression lz4    \
+        --exclude-caches     \
+        --exclude .venv      \
+        --exclude .vagrant   \
+        --exclude .pyc       \
+        ::${ARCHIVE}         \
+        /Users/tzhkrka5/Documents/GitHub
+
+    /usr/local/bin/borg prune     \
+        --list              \
+        --show-rc           \
+        --keep-daily    7   \
+        --keep-weekly   4   \
+        --keep-monthly  6
+}
+
+function sub_list() {
+    borg list
+}
+
+subcommand=$1
+case $subcommand in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "       Run '$prog_name --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac
