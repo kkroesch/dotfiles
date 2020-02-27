@@ -56,10 +56,7 @@ source ~/.libshell/vpn.sh
 # Add additinal functions
 fpath=( ~/.zfunc "${fpath[@]}" )
 
-alias lock="pmset displaysleepnow"
-alias please="sudo"
-alias ls="lsd"
-alias la="lsd -al"
+source ~/.alias
 
 # Use zmv: https://coderwall.com/p/yepegw/mass-renaming-files-with-zmv-zsh
 autoload -U zmv
