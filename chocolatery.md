@@ -1,3 +1,9 @@
+# Software for Windows
+
+This is a list of commands to install Windows software packages that I need.
+
+See also the [Install Windows](https://github.com/kkroesch/install-windows) project.
+
 ## Browser
 
     choco install firefox
