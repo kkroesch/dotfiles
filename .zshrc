@@ -51,6 +51,8 @@ source ~/.libshell/vpn.sh
 #source ~/.libshell/gbt.sh
 #source ~/.libshell/development.sh
 
+[ -f $SESSION_FILE ] && ssh-reconnect
+
 # Add additinal functions
 fpath=( ~/.zfunc "${fpath[@]}" )
 
