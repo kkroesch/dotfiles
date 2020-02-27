@@ -30,7 +30,7 @@ function ssh-reconnect() {
   # Reconnect agent on new terminal session
   source $SESSION_FILE
 }
-[ -f $SESSION_FILE ] && ssh-reconnect
+
 
 function ssp() {
   # Login with password instead of public key (requires sshpass and .ssh/password)
