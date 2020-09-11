@@ -19,7 +19,6 @@ HIST_STAMPS="dd.mm.yyyy"
 plugins=(sudo git python docker vagrant cloudfoundry terraform colored-man-pages)
 
 source $ZSH/oh-my-zsh.sh
-source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Key Bindings
 # ctrl+b/f or ctrl+left/right : move word by word (backward/forward)
@@ -50,6 +49,9 @@ source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
 #source ~/.libshell/gbt.sh
 #source ~/.libshell/development.sh
+
+HISTIGNORE="history:fc:ls:la"
+HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit)"
 
 [ -f $SESSION_FILE ] && ssh-reconnect
 
