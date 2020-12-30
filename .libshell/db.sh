@@ -3,12 +3,17 @@
 function create_db() {
 	DB=$1
 
-	cat <<EOF
+	pass generate -n db/$DB/admin
+	pass generate -n db/$DB/app
+	pass generate -n db/$DB/report
+
+
+	sudo mysql <<EOF
 -- Create Database and Users
 CREATE DATABASE IF NOT EXISTS $DB;
-CREATE USER '${DB}-adm'@'%' IDENTIFIED BY '$(openssl rand 8 -hex)';
-CREATE USER '${DB}-app'@'%' IDENTIFIED BY '$(openssl rand 8 -hex)';
-CREATE USER '${DB}-rep'@'%' IDENTIFIED BY '$(openssl rand 8 -hex)';
+CREATE USER '${DB}-adm'@'%' IDENTIFIED BY '$(pass db/$DB/admin)';
+CREATE USER '${DB}-app'@'%' IDENTIFIED BY '$(pass db/$DB/app)';
+CREATE USER '${DB}-rep'@'%' IDENTIFIED BY '$(pass db/$DB/report)';
 
 GRANT ALL PRIVILEGES ON $DB.* TO '${DB}-adm'@'%' WITH GRANT OPTION;
 GRANT SELECT, INSERT, UPDATE, DELETE ON $DB.* TO '${DB}-app'@'%';
