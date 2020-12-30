@@ -8,7 +8,7 @@ function create_db() {
 	pass generate -n db/$DB/report
 
 
-	sudo mysql <<EOF
+	mysql -p$(pass db/root) <<EOF
 -- Create Database and Users
 CREATE DATABASE IF NOT EXISTS $DB;
 CREATE USER '${DB}-adm'@'%' IDENTIFIED BY '$(pass db/$DB/admin)';
@@ -23,7 +23,7 @@ EOF
 
 function drop_db() {
 	DB=$1
-	sudo mysql <<EOF
+	mysql -p$(pass db/root) <<EOF
 -- Drop Database an Users
 DROP USER '${DB}-adm';
 DROP USER '${DB}-app';
