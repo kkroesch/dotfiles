@@ -23,7 +23,7 @@ EOF
 
 function drop_db() {
 	DB=$1
-	cat <<EOF
+	sudo mysql <<EOF
 -- Drop Database an Users
 DROP USER '${DB}-adm';
 DROP USER '${DB}-app';
