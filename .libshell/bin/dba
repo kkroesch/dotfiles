@@ -1,0 +1,102 @@
+#!/usr/bin/env zsh
+
+##########################################
+##  
+## DBA -- The fast database administrator!                                
+##
+##########################################
+
+prog_name=$(basename $0)
+
+# Set these in .envrc
+[ -z ${DATABASE} ]    && PROJECT="mysql"
+
+#
+# Utility functions
+#
+
+function ok() {
+    echo -e "\e[1;32m$@\e[0m"
+}
+
+function error() {
+    echo -e "\e[1;31mERROR: \e[0m\e[31m$@\e[0m"
+}
+
+function warning() {
+    echo -e "\e[33mWARNING: $@\e[0m"
+}
+
+function fatal() {
+    error $1
+    exit 1
+}
+
+# Check Requirements
+hash mysql 2>/dev/null || fatal "MySQL is not installed."
+hash pass 2>/dev/null || warning "Passwordstore is not installed. User admin commands will not work."
+
+#
+# Sub-Commands
+#
+
+function sub_help(){
+    echo "Usage: $prog_name <subcommand> [options]\n"
+    echo "Subcommands:"
+    echo "    useradd [-g|-r|-w] <USERNAME>     Create user and generate password."
+    echo "    userdel <USERDEL>                 Drop user."
+    echo "    create <DATABASE>                 Create database and standard users with permissions."
+    echo "    schema                            Export database schema."
+    echo "    data [TABLE]                      Export data [from table]."
+    echo ""
+    echo "For help with each subcommand run:"
+    echo "$prog_name <subcommand> -h|--help"
+    echo ""
+}
+
+function sub_useradd() {
+    USER=$1
+    pass generate -n db/$DATABASE/$USER
+    echo mysql $DATABASE -e mysql -p$(pass db/root) <<-EOF
+        CREATE USER '${USER}'@'%' IDENTIFIED BY '$(pass db/$DB/$USER)';
+EOF
+    echo mysqladmin reload
+}
+
+function sub_create() {
+    DB=$1
+    
+    pass generate -n db/$DB/admin
+	pass generate -n db/$DB/app
+	pass generate -n db/$DB/report
+
+
+	sudo mysql <<-EOF
+        CREATE DATABASE IF NOT EXISTS $DB;
+        CREATE USER '${DB}adm'@'%' IDENTIFIED BY '$(pass db/$DB/admin)';
+        CREATE USER '${DB}app'@'%' IDENTIFIED BY '$(pass db/$DB/app)';
+        CREATE USER '${DB}rep'@'%' IDENTIFIED BY '$(pass db/$DB/report)';
+
+        GRANT ALL PRIVILEGES ON $DB.* TO '${DB}adm'@'%' WITH GRANT OPTION;
+        GRANT SELECT, INSERT, UPDATE, DELETE ON $DB.* TO '${DB}app'@'%';
+        GRANT SELECT ON $DB.* TO '${DB}rep'@'%';
+EOF
+}
+
+
+subcommand=$1
+
+case $subcommand in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "       Run '$prog_name --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac
