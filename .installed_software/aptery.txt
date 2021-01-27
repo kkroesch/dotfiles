@@ -1,6 +1,5 @@
 ansible
 bat
-bat
 cmake
 cpprestsdk
 ctop
@@ -9,8 +8,6 @@ docker.io
 gitlab-runner
 gnupg
 go-jira
-gopass
-gopass
 graphviz
 httpie
 jq
@@ -19,14 +16,11 @@ libclang-10-dev
 libclang-dev
 lsd
 markdown
-neovim
 netdiscover
 nginx
 nmap
-nmap
 pass
 proxytunnel
-pwgen
 pwgen
 pylint
 pypy3
@@ -34,7 +28,6 @@ python3-dev
 python3-pip
 sqlite3
 sshfs
-tig
 tig
 tmux
 visidata
