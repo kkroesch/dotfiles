@@ -1,3 +1,6 @@
 [submodule ".tmux-plugins/tmux-sidebar"]
 	path = .tmux-plugins/tmux-sidebar
 	url = https://github.com/tmux-plugins/tmux-sidebar
+[submodule ".vim/vim-airline"]
+	path = .vim/vim-airline
+	url = https://github.com/vim-airline/vim-airline.git
