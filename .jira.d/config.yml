@@ -1,2 +1,2 @@
-endpoint: https://jira.swisscom.com
+endpoint: https://jira.mycompany.com
 password-source: keyring

@@ -1,8 +1,0 @@
-export CF_DB_CREDENTIALS=$(cf env mailtools | pcre2grep -M -o1 'VCAP_SERVICES":(.*(\n|.)*)}\n\n{\n' | jq '.mariadbent[0].credentials')
-export CF_MYSQL_DATABASE=$(echo $CF_DB_CREDENTIALS | jq .database | xargs)
-export CF_MYSQL_USER=$(echo $CF_DB_CREDENTIALS | jq .username | xargs)
-export CF_MYSQL_PASSWORD=$(echo $CF_DB_CREDENTIALS | jq .password | xargs)
-
-alias cfmysql="mysql -h 0 -P 63306 -u ${CF_MYSQL_USER} -p${CF_MYSQL_PASSWORD} ${CF_MYSQL_DATABASE}"
-alias cfmysqldump="mysqldump -h 0 -P 63306 -u ${CF_MYSQL_USER} -p${CF_MYSQL_PASSWORD} --skip-lock-tables ${CF_MYSQL_DATABASE}"
-

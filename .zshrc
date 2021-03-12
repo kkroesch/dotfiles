@@ -16,7 +16,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python docker vagrant cloudfoundry terraform colored-man-pages)
+plugins=(sudo git python docker vagrant terraform colored-man-pages)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -47,8 +47,6 @@ source ~/.libshell/macos.sh
 source ~/.libshell/crypto.sh
 source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
-#source ~/.libshell/gbt.sh
-#source ~/.libshell/development.sh
 
 HISTIGNORE="history:fc:ls:la"
 HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit)"
@@ -68,7 +66,7 @@ eval "$(direnv hook zsh)"
 
 # CDPATH
 setopt auto_cd
-cdpath=($HOME/Documents/ $HOME/Documents/GitHub $HOME)
+cdpath=($HOME/Documents/ $HOME/Dokumente/github $HOME/Documents/GitHub $HOME)
 
 # Only works on Mac with iTerm
 # test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
@@ -77,5 +75,3 @@ cdpath=($HOME/Documents/ $HOME/Documents/GitHub $HOME)
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     PS1="${HOST} $PS1"
 fi
-
-
