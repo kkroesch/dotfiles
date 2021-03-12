@@ -70,4 +70,12 @@ eval "$(direnv hook zsh)"
 setopt auto_cd
 cdpath=($HOME/Documents/ $HOME/Documents/GitHub $HOME)
 
-test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
+# Only works on Mac with iTerm
+# test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
+
+# Display host name when logged in remotely
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    PS1="${HOST} $PS1"
+fi
+
+
