@@ -1,4 +1,1 @@
-alias lock="pmset displaysleepnow"
-alias please="sudo"
-alias ls="lsd"
-alias la="lsd -al"
+alias la="lsd -lAh"
