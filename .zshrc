@@ -75,3 +75,6 @@ cdpath=($HOME/Documents/ $HOME/Dokumente/github $HOME/Documents/GitHub $HOME)
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     PS1="${HOST} $PS1"
 fi
+
+# Turn off all beeps
+unsetopt BEEP
