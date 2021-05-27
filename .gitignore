@@ -4,3 +4,4 @@ Thumbs.db
 .bundle
 .ssh/password
 *.swp
+.vault_pass
