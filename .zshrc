@@ -66,7 +66,7 @@ eval "$(direnv hook zsh)"
 
 # CDPATH
 setopt auto_cd
-cdpath=($HOME/Documents/ $HOME/Dokumente/github $HOME/Documents/GitHub $HOME)
+cdpath=($HOME/Documents/ $HOME/Projects $HOME/Documents/GitHub $HOME)
 
 # Only works on Mac with iTerm
 # test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
