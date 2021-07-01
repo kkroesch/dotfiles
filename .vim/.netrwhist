@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =3
+let g:netrw_dirhist_3='/home/karsten/vagrant/group_vars'
+let g:netrw_dirhist_2='/mnt/c/Users/kkr/Projects/dotfiles/.zfuncs/network'
+let g:netrw_dirhist_1='/mnt/c/Users/kkr/Projects/dotfiles/.zfuncs'
