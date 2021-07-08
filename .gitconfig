@@ -5,11 +5,9 @@
 	required = true
 [user]
 	name = Karsten Kroesch
-	email = Karsten.Kroesch@swisscom.com
+	email = karsten.kroesch@ispin.ch
 [help]
   autocorrect = 5
-[merge "ours"]
-	driver = true
 [alias]
   last = log -1 --stat
   cp = cherry-pick
@@ -26,9 +24,20 @@
   ui = true
 [core]
 	excludesfile = /Users/tzhkrka5/.gitignore_global
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+[http]
+	sslCAInfo = /usr/local/share/ca-certificates/proxy.intdomain.net_2019-2034.pem
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[delta]
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate = true
+
+[interactive]
+    diffFilter = delta --color-only
+
