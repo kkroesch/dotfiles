@@ -1,6 +1,7 @@
 # Crypto utils
 
-alias mkpass="openssl rand -base64 8"
+alias mkpassword="openssl rand -base64 12"
+alias mkpassphrase="gpg --gen-random --armor 0 24"
 
 function enc() {
   # Encrypt file

@@ -1,3 +1,8 @@
+dps() {
+  # Show all running containers
+  docker ps
+}
+
 
 dosh() {
   # Open shell for container
