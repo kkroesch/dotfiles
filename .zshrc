@@ -41,7 +41,7 @@ export JUMPHOST=hjmpsys01.sharedtcs.net
 source ~/.libshell/ssh.sh
 source ~/.libshell/python.sh
 source ~/.libshell/docker.sh
-source ~/.libshell/proxy.sh
+source ~/.libshell/network.sh
 source ~/.libshell/currency.sh
 source ~/.libshell/macos.sh
 source ~/.libshell/crypto.sh
