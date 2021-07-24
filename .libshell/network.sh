@@ -2,6 +2,10 @@ ORIG_PROMPT="$PS1"
 
 alias list_ips="ip a | sed -En 's/127.0.0.1//;s/.*inet (addr:)?(([0-9]*\.){3}[0-9]*).*/\2/p'"
 
+function rdap() {
+	curl -sL https://rdap.db.ripe.net/ip/$1 | jq ". | .handle, .name, .country" | tr -d '"'
+}
+
 function proxon() {
     export HTTPS_PROXY=clientproxy.corproot.net:8079
     export HTTP_PROXY=clientproxy.corproot.net:8079
