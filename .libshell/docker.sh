@@ -1,6 +1,6 @@
 dps() {
   # Show all running containers
-  docker ps
+  docker ps @$
 }
 
 
