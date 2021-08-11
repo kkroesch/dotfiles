@@ -3,6 +3,10 @@ dps() {
   docker ps @$
 }
 
+dlog() {
+  # Show logs for container
+  docker logs @$
+}
 
 dosh() {
   # Open shell for container
