@@ -26,13 +26,13 @@ bindkey '^b' backward-word
 bindkey '^f' forward-word
 
 # Node.JS tooling
-export PATH=~/.npm-packages/bin:$PATH
+path+=~/.npm-packages/bin
 
 # MySQL Tools
-export PATH=/usr/local/mysql/bin:$PATH
+# path+=/usr/local/mysql/bin
 
-# Script Tools
-export PATH=~/.libshell/bin:$PATH
+# Tool Scripts
+path+=~/.libshell/bin
 
 # SSH Agent Tools
 export SSH_KEY_PATH="~/.ssh/id_ecdsa"
@@ -54,7 +54,7 @@ HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit)"
 [ -f $SESSION_FILE ] && ssh-reconnect
 
 # Add additinal functions
-fpath=( ~/.zfunc "${fpath[@]}" )
+fpath=( ~/.zfuncs "${fpath[@]}" )
 
 source ~/.alias
 
@@ -62,7 +62,7 @@ source ~/.alias
 autoload -U zmv
 
 # Evaluate .direnv when entering directory
-eval "$(direnv hook zsh)"
+hash direnv 2>/dev/null && eval "$(direnv hook zsh)"
 
 # CDPATH
 setopt auto_cd
