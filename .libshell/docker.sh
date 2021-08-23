@@ -33,6 +33,11 @@ dipall() {
     done
 }
 
+# Ansible toolset as a container on WSL
+ansible-tools() {
+   docker run --rm -it -v ${PWD//mnt/}:/usr/src/${PWD##*/} quay.io/ansible/toolset
+}
+
 # Run SQL client on dockerized Elasticsearch
 alias doesql="docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-sql-cli"
 
