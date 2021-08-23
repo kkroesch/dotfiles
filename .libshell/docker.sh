@@ -1,11 +1,15 @@
+
+# Communicate via TCP, especially on WSL
+[ -S /var/run/docker.sock ] || export DOCKER_HOST=localhost:2375
+
 dps() {
   # Show all running containers
-  docker ps @$
+  docker ps -a
 }
 
 dlog() {
   # Show logs for container
-  docker logs @$
+  docker logs $1
 }
 
 dosh() {
