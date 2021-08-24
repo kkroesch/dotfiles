@@ -32,7 +32,7 @@ path+=~/.npm-packages/bin
 # path+=/usr/local/mysql/bin
 
 # Tool Scripts
-path+=~/.libshell/bin
+path+=~/.libshell
 
 # SSH Agent Tools
 export SSH_KEY_PATH="~/.ssh/id_ecdsa"
