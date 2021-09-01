@@ -23,9 +23,10 @@
 [color]
   ui = true
 [core]
-	excludesfile = /Users/tzhkrka5/.gitignore_global
+	excludesfile = ~/.gitignore_global
 [http]
 	sslCAInfo = /usr/local/share/ca-certificates/proxy.intdomain.net_2019-2034.pem
+	sslVerify = false
 [pager]
     diff = delta
     log = delta
