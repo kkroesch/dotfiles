@@ -1,1 +1,6 @@
-alias la="lsd -lAh"
+hash lsd 2> /dev/null && alias la="lsd -lAh"
+alias nose="nose2-3"
+alias bat="batcat"
+
+alias open="xdg-open"
+
