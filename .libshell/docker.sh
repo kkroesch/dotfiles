@@ -19,17 +19,14 @@ dosh() {
 
 dip() {
   # Show IP address for container
-  docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+  docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
 
 dipall() {
     # Show all IP addresses in Docker Compose project
-    for container_name in $(docker-compose ps -q);
+    for container in $(docker ps -q)
     do
-        local container_ip=$(dip $container_name)
-        if [[ -n "$container_ip" ]]; then
-            echo $(dip $container_name) " $container_name"
-        fi
+      docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} {{.Name}}' $container | tr -d '/'
     done
 }
 
