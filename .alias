@@ -3,4 +3,4 @@ alias nose="nose2-3"
 alias bat="batcat"
 
 alias open="xdg-open"
-
+alias natp="http --body ifconfig.co"
