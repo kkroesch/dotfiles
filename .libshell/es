@@ -1,0 +1,109 @@
+#!/usr/bin/env zsh
+
+  ##########################################
+  #   _____ ____   ____ _     ___
+  #  | ____/ ___| / ___| |   |_ _|
+  #  |  _| \___ \| |   | |    | |
+  #  | |___ ___) | |___| |___ | |
+  #  |_____|____/ \____|_____|___|
+  #
+  ##########################################
+
+  prog_name=$(basename $0)
+
+  # Set these in .envrc
+  HOST=localhost
+  PORT=9200
+  USER=elastic
+  PASSWORD=changeme
+
+  if [[ -v USER ]]
+  then
+    ES_URL=http://$USER:$PASSWORD@$HOST:$PORT
+  else
+    ES_URL=http://$HOST:$PORT
+  fi
+
+
+  #
+  # Utility functions
+  #
+
+  function ok() {
+      echo -e "\e[1;32m$@\e[0m"
+  }
+
+  function error() {
+      echo -e "\e[1;31mERROR: \e[0m\e[31m$@\e[0m"
+  }
+
+  function warning() {
+      echo -e "\e[33mWARNING: $@\e[0m"
+  }
+
+  function fatal() {
+      error $1
+      exit 1
+  }
+
+  # Check Requirements
+  hash http 2>/dev/null   || warning "HTTPie is not installed. Some formatting will be ugly or not work at all."
+  hash jq   2>/dev/null   || warning "Jq is not installed. Some formatting will be ugly or not work at all."
+
+  #
+  # Sub-Commands
+  #
+
+  function sub_help(){
+      echo "Usage: $prog_name <subcommand> [options]\n"
+      echo "Subcommands:"
+      echo "    info                  Show cluster status."
+      echo "    ls                    List indexes."
+      echo "    query [index] [query] Search index for query."
+      echo "    rm index doc_id       Delete document with doc_id."
+      echo "    cat index doc_id      Show document with doc_id."
+      echo "    drop index            Delete index."
+      echo "    load index [file]     Read JSON file or STDIN into index."
+      echo ""
+      echo "For help with each subcommand run:"
+      echo "$prog_name <subcommand> -h|--help"
+      echo ""
+  }
+
+  function sub_info() {
+    # Show information about cluster health
+    http ${ES_URL}/_cluster/health \
+    | jq -r 'to_entries[] | "\(.key): \(.value)"'
+  }
+
+
+  function sub_ls() {
+    # List indices
+    http ${ES_URL}/_cat/indices
+  }
+
+
+  function sub_query() {
+    # Show information about cluster health
+    index=$2
+    query=$3
+    http ${ES_URL}/_search/$2 
+  }
+
+
+  subcommand=$1
+
+  case $subcommand in
+      "" | "-h" | "--help")
+          sub_help
+          ;;
+      *)
+          shift
+          sub_${subcommand} $@
+          if [ $? = 127 ]; then
+              echo "Error: '$subcommand' is not a known subcommand." >&2
+              echo "       Run '$prog_name --help' for a list of known subcommands." >&2
+              exit 1
+          fi
+          ;;
+  esac
