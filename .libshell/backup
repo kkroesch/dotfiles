@@ -1,17 +1,23 @@
-export BORG_REPO=~/myCloud/backup/github
-export BORG_PASSCOMMAND='/usr/local/bin/pass show macbook-15/backup'
+#!/bin/env zsh
+
+# Control Borgbackup
+
+export BORG_REPO=${BORG_REPO:-'~/myCloud/backup/github'}
+export BORG_PASSCOMMAND=${BORG_PASSCOMMAND:-'/usr/local/bin/pass show macbook-15/backup'}
 
 prog_name=$(basename $0)
   
 function sub_help(){
     echo "Usage: $prog_name <subcommand> [options]\n"
     echo "Subcommands:"
-    echo "    create    Creates a new backup archive for today"
-    echo "    list      List archives"
+    echo "    \e[1;37m create \e[0m    Creates a new backup archive for today"
+    echo "    \e[1;37m list   \e[0m    List archives"
     echo ""
     echo "For help with each subcommand run:"
     echo "$prog_name <subcommand> -h|--help"
     echo ""
+    echo "Repository is set to \e[1;37m ${BORG_REPO} \e[0m"
+    echo "Password command is  \e[1;37m '${BORG_PASSCOMMAND}' \e[0m"
 }
 
 function sub_create() {

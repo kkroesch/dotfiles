@@ -1,8 +1,16 @@
+
+# Communicate via TCP, especially on WSL
+[ -S /var/run/docker.sock ] || export DOCKER_HOST=localhost:2375
+
 dps() {
   # Show all running containers
-  docker ps
+  docker ps -a
 }
 
+dlog() {
+  # Show logs for container
+  docker logs $1
+}
 
 dosh() {
   # Open shell for container
@@ -11,18 +19,20 @@ dosh() {
 
 dip() {
   # Show IP address for container
-  docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+  docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
 
 dipall() {
     # Show all IP addresses in Docker Compose project
-    for container_name in $(docker-compose ps -q);
+    for container in $(docker ps -q)
     do
-        local container_ip=$(dip $container_name)
-        if [[ -n "$container_ip" ]]; then
-            echo $(dip $container_name) " $container_name"
-        fi
+      docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}} {{.Name}}' $container | tr -d '/'
     done
+}
+
+# Ansible toolset as a container on WSL
+ansible-tools() {
+   docker run --rm -it -v ${PWD//mnt/}:/usr/src/${PWD##*/} quay.io/ansible/toolset
 }
 
 # Run SQL client on dockerized Elasticsearch
