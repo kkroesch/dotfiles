@@ -42,8 +42,9 @@ set guioptions=aAace    " don't show scrollbar in MacVim
 " clipboard
 set clipboard=unnamed   " allow yy, etc. to interact with OS X clipboard
 
-" shortcuts
+" Toggle Nerdtree
 map <F2> :NERDTreeToggle<CR>
+" Delete blank lines
 map <ESC>bb :g/^\s*$/d<CR>
 
 " remapped keys

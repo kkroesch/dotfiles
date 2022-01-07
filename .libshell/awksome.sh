@@ -1,3 +1,6 @@
+#
+# Awk examples.
+#
 
 function reverse() {
     # Reverse IP address

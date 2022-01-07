@@ -27,9 +27,13 @@ function ssh-reconnect() {
   source $SESSION_FILE
 }
 
-
 function ssp() {
   # Login with password instead of public key (requires sshpass and .ssh/password)
   sshpass -f .ssh/password ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no $1
 }
 
+function socksout() {
+  # Start a SOCKS proxy on port 1080
+  ssh -D 1080 -q -C -N -f karsten@lab.kroesch.net
+  proxon(localhost:1080)
+}

@@ -14,8 +14,3 @@ function dec() {
   # Decrypt file
   openssl enc -d -aes-256-cbc -a -in $1
 }
-
-function mkcsr() {
-  # Create Certification Signing Request (CSR)
-   openssl req -new -config ~/.libshell/cert/cert.conf -keyout server.key -out server.csr
-}

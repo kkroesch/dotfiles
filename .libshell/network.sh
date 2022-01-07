@@ -7,11 +7,12 @@ function rdap() {
 }
 
 function proxon() {
-    export HTTPS_PROXY=clientproxy.corproot.net:8079
-    export HTTP_PROXY=clientproxy.corproot.net:8079
+    PROXY_URL=${1:-localhost:1080}
+    export HTTPS_PROXY=$PROXY_URL
+    export HTTP_PROXY=$PROXY_URL
     export https_proxy=$HTTPS_PROXY
     export http_proxy=$HTTP_PROXY
-    export NO_PROXY="127.0.0.0/8,localhost,*.corproot.net,*.scapp-console.swisscom.com"
+    export NO_PROXY="127.0.0.0/8,localhost,localaddress,.localdomain.com,*.docker.localhost"
     export PS1=" ⧓ $PS1"
 }
 
