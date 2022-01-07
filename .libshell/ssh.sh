@@ -35,5 +35,5 @@ function ssp() {
 function socksout() {
   # Start a SOCKS proxy on port 1080
   ssh -D 1080 -q -C -N -f karsten@lab.kroesch.net
-  proxon(localhost:1080)
+  proxon
 }

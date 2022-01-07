@@ -48,7 +48,12 @@ HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit|pass|vault|git|ssh|sudo)"
 [ -f $SESSION_FILE ] && ssh-reconnect
 
 # Add additinal functions
-fpath=( ~/.zfuncs "${fpath[@]}" )
+fpath=( 
+    ~/.zfuncs
+    ~/.zfuncs/**/*
+    "${fpath[@]}"
+)
+autoload -Uz $fpath[1]/*(.:t)
 
 source ~/.alias
 
@@ -61,9 +66,6 @@ hash direnv 2>/dev/null && eval "$(direnv hook zsh)"
 # CDPATH
 setopt auto_cd
 cdpath=($HOME/Documents/ $HOME/Projects $HOME/Learn $HOME)
-
-# Only works on Mac with iTerm
-# test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
 
 # Display host name when logged in remotely
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then

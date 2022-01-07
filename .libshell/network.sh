@@ -7,7 +7,7 @@ function rdap() {
 }
 
 function proxon() {
-    PROXY_URL=${1:-localhost:1080}
+    PROXY_URL=${1:-"socks5h://localhost:1080"}
     export HTTPS_PROXY=$PROXY_URL
     export HTTP_PROXY=$PROXY_URL
     export https_proxy=$HTTPS_PROXY
