@@ -37,6 +37,10 @@ ansible-tools() {
 
 # Run SQL client on dockerized Elasticsearch
 alias doesql="docker exec -it elasticsearch /usr/share/elasticsearch/bin/elasticsearch-sql-cli"
+alias dc="docker compose"
+alias dcu="dc up"
+alias dcd="dc down"
+alias dcl="dc logs"
 
 docker-rmimages() {
 	for image in $(docker images -q)
