@@ -1,0 +1,54 @@
+{
+	"Ingest to Elasticsearch": {
+		"scope": "properties",
+		"prefix": "esout",
+		"body": [
+			"elasticsearch {",
+			"\t# Store alert document in Elasticsearch",
+			"\thosts => \"\\${ELASTIC_HOST:elasticsearch}:\\${ELASTIC_PORT:9200}\"",
+			"\tuser => \"\\${ELASTIC_USER:elastic}\"",
+			"\tpassword => \"\\${ELASTIC_PASSWORD:changeme}\"",
+			"\tssl => true",
+			"\tcacert => \"/usr/share/logstash/certificates/elasticsearch_proxy.cer\"",
+			"\tindex => \"siem_alerts-security\"",
+			"}"
+		],
+		"description": "Ingest to Elasticsearch"
+	},
+
+	"Elasticsearch Query Input": {
+		"scope": "properties",
+		"prefix": "esin",
+		"body": [
+			"elasticsearch {",
+			"\thosts => \"\\${ELASTIC_HOST:elasticsearch}:\\${ELASTIC_PORT:9200}\"",
+			"\tuser => \"\\${ELASTIC_USER:elastic}\"",
+			"\tpassword => \"\\${ELASTIC_PASSWORD:changeme}\"",
+			"\tssl => true",
+			"\tca_file => \"/usr/share/logstash/certificates/elasticsearch_proxy.cer\"",	
+			"\tindex => \"logs_av_symantec-*\"",
+			"\tquery => '{",
+			"\t\t\"query\": {",
+			"\t\t\t\"bool\": {",
+			"\t\t\t\t\"must_not\": {",
+			"\t\t\t\t\t\"match\": {",
+			"\t\t\t\t\t\t\"event.description\": \"Audit\"",
+			"\t\t\t\t\t}"
+			"\t\t\t\t},",
+			"\t\t\t\t\"must\": {",
+			"\t\t\t\t\t\"range\": {"
+			"\t\t\t\t\t\t\"event.ingested\": {",
+			"\t\t\t\t\t\t\t\"gte\": \"now-30m/m\"",
+			"\t\t\t\t\t\t\t\"lte\": \"now/m\"",
+			"\t\t\t\t\t\t}",
+			"\t\t\t\t\t}",
+			"\t\t\t\t}",
+			"\t\t\t}",
+			"\t\t}",
+			"\t}'",
+			"\tschedule => \"*/30 * * * *\"",
+			"\t}",
+			"}"
+		],
+	}
+}
