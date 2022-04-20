@@ -17,7 +17,7 @@ dosh() {
   docker exec -it $1 bash
 }
 
-dip() {
+doip() {
   # Show IP address for container
   docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
