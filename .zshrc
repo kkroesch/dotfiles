@@ -67,6 +67,12 @@ hash direnv 2>/dev/null && eval "$(direnv hook zsh)"
 setopt auto_cd
 cdpath=($HOME/Documents/ $HOME/Projects $HOME/Learn $HOME)
 
+# Use McFly if installed
+if command -v mcfly &> /dev/null
+then
+  eval "$(mcfly init zsh)"
+fi
+
 # Display host name when logged in remotely
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     PS1="${HOST} $PS1"
