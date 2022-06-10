@@ -32,8 +32,7 @@ function ssp() {
   sshpass -f .ssh/password ssh -o PreferredAuthentications=password -o PubkeyAuthentication=no $1
 }
 
-function socksout() {
-  # Start a SOCKS proxy on port 1080
-  ssh -D 1080 -q -C -N -f karsten@lab.kroesch.net
-  proxon
+function keygen() {
+  ssh-keygen -t ed25519 -a 420 -f $1 -C "Example comment"
 }
+
