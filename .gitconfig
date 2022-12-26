@@ -5,7 +5,7 @@
 	required = true
 [user]
 	name = Karsten Kroesch
-	email = karsten.kroesch@ispin.ch
+	email = kkroesch@gmail.com
 [help]
   autocorrect = 5
 [alias]
@@ -24,9 +24,6 @@
   ui = true
 [core]
 	excludesfile = ~/.gitignore_global
-[http]
-	sslCAInfo = /usr/local/share/ca-certificates/proxy.intdomain.net_2019-2034.pem
-	sslVerify = false
 [pager]
     diff = delta
     log = delta
