@@ -1,3 +1,5 @@
 # Tasks
 
-Some tasks that will be automated in the future are left here as notes.
+This collects some CLI tasks that are not aliased yet and maybe never will.
+
+
