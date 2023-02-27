@@ -2,9 +2,9 @@
 Install Helm charts from Artifactory
 
 ```
-    helm repo add bitnami https://charts.bitnami.com/bitnami
-    kubectl config set-context --current --namespace=Playground
-    helm install my-mariadb bitnami/mariadb --version 11.4.6
+  helm repo add bitnami https://charts.bitnami.com/bitnami
+  kubectl config set-context --current --namespace=Playground
+  helm install my-mariadb bitnami/mariadb --version 11.4.6
 ```
 
 
