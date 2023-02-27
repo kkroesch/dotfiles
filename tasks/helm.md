@@ -13,7 +13,6 @@ Clone Helm chart and customize, then install:
 ```
   helm pull kronkltd/sqlpad
   helm uninstall my-sqlpad
-  helm install -f values.yaml my-sqlpad kronkltd/sqlpad --version 0.1.0
-  helm upgrade -f values.yaml my-sqlpad kronkltd/sqlpad --version 0.1.0
+  helm install -f .\sqlpad\values.yaml my-sqlpad .\sqlpad\
 ```
 
