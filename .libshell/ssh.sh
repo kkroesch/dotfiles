@@ -15,12 +15,17 @@ jcp () {
 export SESSION_FILE=~/.ssh/session
 
 function sshagent() {
-  # Decrypt SSH key and save agent session
-  eval `ssh-agent` && ssh-add ~/.ssh/id_ecdsa
+  # Decrypt SSH key and save agent session; add all keys to agent.
+  eval `ssh-agent`
+  for key in `ls -1 ~/.ssh/id*.pub`
+  do 
+    ssh-add ${key%.pub}
+  done
   echo export SSH_AUTH_SOCK=$SSH_AUTH_SOCK > $SESSION_FILE
   echo export SSH_AGENT_PID=$SSH_AGENT_PID >> $SESSION_FILE
   chmod 600 $SESSION_FILE
 }
+
 
 function ssh-reconnect() {
   # Reconnect agent on new terminal session
