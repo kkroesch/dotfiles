@@ -22,8 +22,8 @@ struct SearchResult {
 fn main() {
     let matches = App::new(PROGRAM)
         .version(VERSION)
-        .author("K. Kroesch")
-        .about("Simple Elasticsearch client.")
+        .author("Your Name")
+        .about("Description of my_tool")
         .arg(
             Arg::with_name("help")
                 .short("h")
