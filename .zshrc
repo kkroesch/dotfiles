@@ -16,7 +16,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python docker)
+plugins=(sudo git python docker vagrant terraform kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -25,17 +25,26 @@ source $ZSH/oh-my-zsh.sh
 bindkey '^b' backward-word
 bindkey '^f' forward-word
 
-# Tool Scripts
-path+=~/.libshell
+# Node.JS tooling
+export PATH=~/.npm-packages/bin:$PATH
+
+# MySQL Tools
+export PATH=/usr/local/mysql/bin:$PATH
+
+# Script Tools
+export PATH=~/.libshell/bin:$PATH
+
+# Go Tools
+path+=('~/go/bin')
 
 # SSH Agent Tools
 export SSH_KEY_PATH="~/.ssh/id_ecdsa"
 
 export JUMPHOST=hjmpsys01.sharedtcs.net
-source ~/.libshell/network.sh
 source ~/.libshell/ssh.sh
 source ~/.libshell/python.sh
 source ~/.libshell/docker.sh
+source ~/.libshell/network.sh
 source ~/.libshell/currency.sh
 source ~/.libshell/macos.sh
 source ~/.libshell/crypto.sh
@@ -43,17 +52,12 @@ source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
 
 HISTIGNORE="history:fc:ls:la"
-HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit|pass|vault|git|ssh|sudo)"
+HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit)"
 
 [ -f $SESSION_FILE ] && ssh-reconnect
 
 # Add additinal functions
-fpath=( 
-    ~/.zfuncs
-    ~/.zfuncs/**/*
-    "${fpath[@]}"
-)
-autoload -Uz $fpath[1]/*(.:t)
+fpath=( ~/.zfunc "${fpath[@]}" )
 
 source ~/.alias
 
@@ -61,17 +65,14 @@ source ~/.alias
 autoload -U zmv
 
 # Evaluate .direnv when entering directory
-hash direnv 2>/dev/null && eval "$(direnv hook zsh)"
+eval "$(direnv hook zsh)"
 
 # CDPATH
 setopt auto_cd
-cdpath=($HOME/Documents/ $HOME/Projects $HOME/Learn $HOME)
+cdpath=($HOME/Documents/ $HOME/Projects $HOME/Documents/GitHub $HOME)
 
-# Use McFly if installed
-if command -v mcfly &> /dev/null
-then
-  eval "$(mcfly init zsh)"
-fi
+# Only works on Mac with iTerm
+# test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
 
 # Display host name when logged in remotely
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
