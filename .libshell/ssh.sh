@@ -1,5 +1,9 @@
 # SSH Agent Tools
 
+export JUMPHOST=lab.kroesch.net
+export SSH_KEY_PATH="~/.ssh/id_ecdsa"
+export SESSION_FILE=~/.ssh/session
+
 jump () {
 	# Forward agent to jump host
 	HOST=$1 
@@ -11,8 +15,6 @@ jcp () {
 	# Copy file via jump host
 	scp -oProxyJump=$JUMPHOST $1 $2 2> /dev/null
 }
-
-export SESSION_FILE=~/.ssh/session
 
 function sshagent() {
   # Decrypt SSH key and save agent session; add all keys to agent.

@@ -26,21 +26,14 @@ bindkey '^b' backward-word
 bindkey '^f' forward-word
 
 # Node.JS tooling
-export PATH=~/.npm-packages/bin:$PATH
-
-# MySQL Tools
-export PATH=/usr/local/mysql/bin:$PATH
+path+=(~/.npm-packages/bin)
 
 # Script Tools
-export PATH=~/.libshell/bin:$PATH
+path+=(~/.libshell)
 
 # Go Tools
 path+=('~/go/bin')
 
-# SSH Agent Tools
-export SSH_KEY_PATH="~/.ssh/id_ecdsa"
-
-export JUMPHOST=hjmpsys01.sharedtcs.net
 source ~/.libshell/ssh.sh
 source ~/.libshell/python.sh
 source ~/.libshell/docker.sh
@@ -48,7 +41,6 @@ source ~/.libshell/network.sh
 source ~/.libshell/currency.sh
 source ~/.libshell/macos.sh
 source ~/.libshell/crypto.sh
-source ~/.libshell/db.sh
 source ~/.libshell/vpn.sh
 
 HISTIGNORE="history:fc:ls:la"
@@ -65,7 +57,7 @@ source ~/.alias
 autoload -U zmv
 
 # Evaluate .direnv when entering directory
-eval "$(direnv hook zsh)"
+hash direnv 2>/dev/null && eval "$(direnv hook zsh)"
 
 # CDPATH
 setopt auto_cd
