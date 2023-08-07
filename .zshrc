@@ -16,7 +16,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python docker vagrant terraform kubectl)
+plugins=(sudo git python vagrant terraform kubectl )
 
 source $ZSH/oh-my-zsh.sh
 
@@ -25,21 +25,21 @@ source $ZSH/oh-my-zsh.sh
 bindkey '^b' backward-word
 bindkey '^f' forward-word
 
-# Node.JS tooling
+# Developers tool belt
 path+=(~/.npm-packages/bin)
-
-# Script Tools
-path+=(~/.libshell)
-
-# Go Tools
 path+=('~/go/bin')
+path+=('~/.libshell')
+source "$HOME/.cargo/env"
 
+# SSH Agent Tools
+export SSH_KEY_PATH="~/.ssh/id_ecdsa"
+
+export JUMPHOST=hjmpsys01.sharedtcs.net
 source ~/.libshell/ssh.sh
 source ~/.libshell/python.sh
 source ~/.libshell/docker.sh
 source ~/.libshell/network.sh
 source ~/.libshell/currency.sh
-source ~/.libshell/macos.sh
 source ~/.libshell/crypto.sh
 source ~/.libshell/vpn.sh
 
@@ -56,12 +56,9 @@ source ~/.alias
 # Use zmv: https://coderwall.com/p/yepegw/mass-renaming-files-with-zmv-zsh
 autoload -U zmv
 
-# Evaluate .direnv when entering directory
-hash direnv 2>/dev/null && eval "$(direnv hook zsh)"
-
 # CDPATH
 setopt auto_cd
-cdpath=($HOME/Documents/ $HOME/Projects $HOME/Documents/GitHub $HOME)
+cdpath=($HOME/Documents/ $HOME/Projects $HOME/Learn $HOME)
 
 # Only works on Mac with iTerm
 # test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
@@ -73,3 +70,12 @@ fi
 
 # Turn off all beeps
 unsetopt BEEP
+
+export VAULT_ADDR='http://vault.ads.ktag.ch'
+export VAULT_TOKEN='hvs.xxxxxxxxxxxxxxxxxxxxxtGv'
+
+# Prevent GUI dialog for passphrase:
+export GPG_TTY=$(tty)
+
+eval "$(direnv hook zsh)"
+
