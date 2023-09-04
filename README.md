@@ -2,10 +2,27 @@
 Configuration files for SSH and Tmux. Small helpers for daily work on the shell.
 
 ## Installation
-Clone the repository into a subfolder of your home directory with `git clone`. Then, `stow .` symbolic links.
 
+The most comfortable installation is via Git:
+
+```bash
+mkdir Projects
+git init --bare Projects/dotfiles.git
+git config --global init.defaultBranch master
+git remote add origin git@github.com:kkroesch/dotfiles.git
+
+export DOTFILES=$HOME/Projects/dotfiles.git
+alias dotfile='git --git-dir=$DOTFILES --work-tree=$HOME'   # <-- save this in .alias!
+
+dotfile config --local status.showUntrackedFiles no  # to ignore all the other stuff in $HOME
+dotfile pull origin master
+```
+
+Use `git add` and `git commit` to add your own dotfiles.
 
 ## Features
+
+
 
 ## Recommended Font
 
