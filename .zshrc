@@ -29,7 +29,7 @@ bindkey '^f' forward-word
 path+=(~/.npm-packages/bin)
 path+=('~/go/bin')
 path+=('~/.libshell')
-source "$HOME/.cargo/env"
+[ -d $HOME/.cargo ] && source "$HOME/.cargo/env"
 
 # SSH Agent Tools
 export SSH_KEY_PATH="~/.ssh/id_ecdsa"
@@ -82,5 +82,5 @@ export VAULT_TOKEN='hvs.xxxxxxxxxxxxxxxxxxxxxtGv'
 # Prevent GUI dialog for passphrase:
 export GPG_TTY=$(tty)
 
-eval "$(direnv hook zsh)"
+[ $(command -v direnv) ] && eval "$(direnv hook zsh)"
 
