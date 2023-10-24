@@ -12,3 +12,5 @@ alias mkpass="openssl rand -base64 24"
 
 export DOTFILES=$HOME/Projects/dotfiles.git
 alias dotfile='git --git-dir=$DOTFILES --work-tree=$HOME'
+
+alias 2y="jq -r yamlify2"

@@ -29,6 +29,7 @@ bindkey '^f' forward-word
 path+=(~/.npm-packages/bin)
 path+=('~/go/bin')
 path+=('~/.libshell')
+path+=('~/.local/bin')
 source "$HOME/.cargo/env"
 
 # SSH Agent Tools
