@@ -2,10 +2,11 @@
 
 # Control Borgbackup
 
-export BORG_REPO=${BORG_REPO:-'~/myCloud/backup/github'}
-export BORG_PASSCOMMAND=${BORG_PASSCOMMAND:-'/usr/local/bin/pass show macbook-15/backup'}
+export BORG_REPO=${BORG_REPO:-'/storage/backup/karsten'}
+export BORG_PASSCOMMAND=${BORG_PASSCOMMAND:-'/usr/bin/gopass show backup'}
 
 prog_name=$(basename $0)
+BACKUP_PROG=/usr/bin/borg
   
 function sub_help(){
     echo "Usage: $prog_name <subcommand> [options]\n"
@@ -22,7 +23,7 @@ function sub_help(){
 
 function sub_create() {
     export ARCHIVE=$(date +'%a-%Y-%m-%d')
-    /usr/local/bin/borg create     \
+    $BACKUP_PROG create     \
         --verbose            \
         --filter AME         \
         --list               \
@@ -34,9 +35,9 @@ function sub_create() {
         --exclude .vagrant   \
         --exclude .pyc       \
         ::${ARCHIVE}         \
-        /Users/tzhkrka5/Documents/GitHub
+        /home
 
-    /usr/local/bin/borg prune     \
+    $BACKUP_PROG prune     \
         --list              \
         --show-rc           \
         --keep-daily    7   \
@@ -45,8 +46,9 @@ function sub_create() {
 }
 
 function sub_list() {
-    borg list
+    $BACKUP_PROG list
 }
+
 
 subcommand=$1
 case $subcommand in
