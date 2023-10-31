@@ -3,7 +3,7 @@
 # Control Borgbackup
 
 export BORG_REPO=${BORG_REPO:-'/storage/backup/karsten'}
-export BORG_PASSCOMMAND=${BORG_PASSCOMMAND:-'/usr/bin/gopass show backup'}
+export BORG_PASSCOMMAND=${BORG_PASSCOMMAND:-'cat /home/karsten/.borgpass'}
 
 prog_name=$(basename $0)
 BACKUP_PROG=/usr/bin/borg
@@ -13,6 +13,7 @@ function sub_help(){
     echo "Subcommands:"
     echo "    \e[1;37m create \e[0m    Creates a new backup archive for today"
     echo "    \e[1;37m list   \e[0m    List archives"
+    echo "    \e[1;37m restore <NAME>  \e[0m Mount archive <NAME> (usually in form a-YY-MM-dd) into ~/.restore"
     echo ""
     echo "For help with each subcommand run:"
     echo "$prog_name <subcommand> -h|--help"
@@ -47,6 +48,11 @@ function sub_create() {
 
 function sub_list() {
     $BACKUP_PROG list
+}
+
+function sub_mount() {
+    [ -d ~/.restore ] || mkdir ~/.restore
+    $BACKUP_PROG mount $BORG_REPO::$1 ~/.restore
 }
 
 
