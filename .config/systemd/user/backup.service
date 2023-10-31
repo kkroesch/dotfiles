@@ -1,0 +1,6 @@
+[Unit]
+Description=Backup Service
+
+[Service]
+Type=simple
+ExecStart= /home/karsten/.libshell/backup create > /dev/null
