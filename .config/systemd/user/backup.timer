@@ -1,3 +1,19 @@
+# #Backup timer
+#
+# ## Installation:
+# 
+# ```
+# systemctl --user daemon-reload
+# systemctl --user enable --now backup.service
+# systemctl --user start backup.timer
+# ```
+# 
+# Check with:
+# ```
+# systemctl --user list-timers
+# systemctl --user status backup.service
+# ```
+
 [Unit]
 Description=Timer for daily backup
 

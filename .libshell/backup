@@ -4,6 +4,7 @@
 
 export BORG_REPO=${BORG_REPO:-'/storage/backup/karsten'}
 export BORG_PASSCOMMAND=${BORG_PASSCOMMAND:-'cat /home/karsten/.borgpass'}
+export BACKUP_DIRS="/home /data"
 
 prog_name=$(basename $0)
 BACKUP_PROG=/usr/bin/borg
@@ -23,7 +24,7 @@ function sub_help(){
 }
 
 function sub_create() {
-    export ARCHIVE=$(date +'%a-%Y-%m-%d')
+    ARCHIVE=$(date +'%a-%Y-%m-%d')
     $BACKUP_PROG create     \
         --verbose            \
         --filter AME         \
@@ -44,7 +45,10 @@ function sub_create() {
         --keep-daily    7   \
         --keep-weekly   4   \
         --keep-monthly  6
+
+    $BACKUP_PROG check
 }
+
 
 function sub_list() {
     $BACKUP_PROG list
