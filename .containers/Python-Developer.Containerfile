@@ -5,11 +5,12 @@ FROM ubuntu:latest
 #ENV HTTPS_PROXY=http://httpproxy.ag.ch:8080
 
 RUN apt-get update && \
-    apt-get install -y python3 python3-pip python3-venv python3-nose python3-dev \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python3-pip python3-venv python3-nose python3-dev python3-numpy python3-plotly python3-ipython ipython3 \
     vim exa git build-essential zsh curl \
     net-tools dnsutils nmap mtr iftop 
 
 RUN chsh -s $(which zsh)
+RUN ln -fs /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 RUN useradd -ms /bin/zsh developer
 # RUN echo "developer:password" | chpasswd
 WORKDIR /home/developer
@@ -30,6 +31,7 @@ RUN mkdir Projects && \
     git config --global init.defaultBranch master && \
     echo 'export DOTFILES=$HOME/Projects/dotfiles.git' >> .zshrc && \
     echo 'alias dotfile="git --git-dir=$DOTFILES --work-tree=$HOME"' >> .alias && \
+    echo 'alias la="exa -la"' >> .alias && \
     git --git-dir=$DOTFILES --work-tree=$HOME config --local status.showUntrackedFiles no  # to ignore all the other stuff in $HOME && \
 
 ENTRYPOINT ["zsh"]
