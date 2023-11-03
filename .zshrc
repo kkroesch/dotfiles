@@ -85,3 +85,9 @@ export GPG_TTY=$(tty)
 
 [ $(command -v direnv) ] && eval "$(direnv hook zsh)"
 
+if $(command -v powerline-daemon) {
+  powerline-daemon -q
+  source /usr/share/powerline/bindings/zsh/powerline.zsh
+}
+
+#source /home/karsten/.config/broot/launcher/bash/br
