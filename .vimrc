@@ -16,6 +16,9 @@ filetype indent on      " enable filetype-specific indenting
 filetype plugin on      " enable filetype-specific plugins
 " colorscheme cobalt      " requires cobalt.vim to be in ~/.vim/colors
 
+" Elect a new Leader (sapce key)
+let mapleader = " "
+
 " column-width visual indication
 " let &colorcolumn=join(range(81,999),",")
 " highlight ColorColumn ctermbg=235 guibg=#001D2F
@@ -24,8 +27,8 @@ filetype plugin on      " enable filetype-specific plugins
 set autoindent          " auto indenting
 set smartindent         " smart indenting
 set expandtab           " spaces instead of tabs
-set tabstop=2           " 2 spaces for tabs
-set shiftwidth=2        " 2 spaces for indentation
+set tabstop=4           " 4 spaces for tabs
+set shiftwidth=4        " 4 spaces for indentation
 
 " bells
 set noerrorbells        " turn off audio bell
@@ -42,10 +45,21 @@ set guioptions=aAace    " don't show scrollbar in MacVim
 " clipboard
 set clipboard=unnamed   " allow yy, etc. to interact with OS X clipboard
 
-" Toggle Nerdtree
-map <F2> :NERDTreeToggle<CR>
-" Delete blank lines
-map <ESC>bb :g/^\s*$/d<CR>
+" Netrw tweaks
+"
+nnoremap <Leader>dd :Lexplore %:p:h<CR>
+let g:netrw_keepdir = 0
+let g:netrw_winsize = 25
+let g:netrw_banner = 0
+" Hide dotfiles
+" let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_localcopydircmd = 'cp -a'
+hi! link netrwMarkFile Search
+
+" Terminal Window
+"
+nnoremap <Leader>dt :belowright term<CR>
+
 
 " remapped keys
 inoremap {      {}<Left>
