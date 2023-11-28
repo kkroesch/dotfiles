@@ -1,0 +1,67 @@
+#!/bin/zsh
+
+DATABASE_FILE="/home/karsten/.rrd/messwerte.rrd"
+EXPORTFILE="data.csv"
+MEASUREMENT="responsetime"
+
+sub_mkdb() {
+    # creates an RRD file that expects a new data point every 60 seconds for a data source called myvalue. 
+    # It then aggregates this data into three different ways (average, maximum, and minimum) 
+    # over varying time spans for storage and later retrieval.
+    rrdtool create ${DATABASE_FILE} --step 60 \
+      DS:${MEASUREMENT}:GAUGE:120:0:U \
+      RRA:AVERAGE:0.5:1:1440 \
+      RRA:MAX:0.5:12:1440 \
+      RRA:MIN:0.5:12:1440
+}
+
+sub_update() {
+    # Writes a value into RRD database with current timestamp
+    rrdtool update ${DATABASE_FILE} N:$1 
+}
+
+sub_mkgraph() {
+    # Make a PNG chart of the values in the last hour
+    rrdtool graph chart.png \
+        --start -1h \
+        --title "Messwerte der letzten Stunde" \
+        --vertical-label "Werte" \
+        DEF:myval=${DATABASE_FILE}:${MEASUREMENT}:AVERAGE \
+        LINE1:myval#ff0000:"Messwert"
+}
+
+sub_export() {
+    # Exports the data of the last interval or 24 hours (default) into CSV file
+    INTERVAL=${1:-1d}
+    rrdtool fetch ${DATABASE_FILE} AVERAGE --start -${INTERVAL} --end now > ${EXPORTFILE}
+}
+
+sub_plot() {
+    # Quick plot as ASCII art in the shell
+    gnuplot <<EOF
+set xdata time
+set timefmt "%s"
+set format x "%H:%M:%S"
+set terminal dumb
+plot "${EXPORTFILE}" using 1:2 with lines title "Messwerte"
+EOF
+}
+
+
+subcommand=$1
+
+case $subcommand in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "       Run '$prog_name --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac
+

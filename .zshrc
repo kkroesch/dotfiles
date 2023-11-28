@@ -31,6 +31,7 @@ path+=('~/go/bin')
 path+=('~/.libshell')
 path+=('~/.local/bin')
 [ -d $HOME/.cargo ] && source "$HOME/.cargo/env"
+[ -d /snap/bin ] && path+=('/snap/bin')
 
 # SSH Agent Tools
 export SSH_KEY_PATH="~/.ssh/id_ecdsa"
