@@ -26,10 +26,10 @@ bindkey '^b' backward-word
 bindkey '^f' forward-word
 
 # Developers tool belt
-path+=(~/.npm-packages/bin)
-path+=('~/go/bin')
-path+=('~/.libshell')
-path+=('~/.local/bin')
+path+=("$HOME/.npm-packages/bin")
+path+=("/go/bin")
+path+=("$HOME/.libshell")
+path+=("$HOME/.local/bin")
 [ -d $HOME/.cargo ] && source "$HOME/.cargo/env"
 [ -d /snap/bin ] && path+=('/snap/bin')
 
