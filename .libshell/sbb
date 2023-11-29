@@ -11,11 +11,11 @@ import requests
 import dateutil.parser
 
 icons = {
-    "train": "",
-    "bus": "ﲞ",
-    "tram": "館",
-    "pedestrian": "",
-    None: "ﴤ",
+    "train": "🚄",
+    "bus": "🚌",
+    "tram": "🚋",
+    "pedestrian": "🚶",
+    None: "",
 }
 
 def reformat_time(timestring):

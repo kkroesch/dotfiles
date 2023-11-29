@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =5
+let g:netrw_dirhistcnt =6
+let g:netrw_dirhist_6='/home/karsten/.libshell'
 let g:netrw_dirhist_5='/home/karsten'
 let g:netrw_dirhist_4='/Users/karsten'
 let g:netrw_dirhist_3='/home/karsten/vagrant/group_vars'
