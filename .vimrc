@@ -73,7 +73,7 @@ inoremap {}     {}
 "
 "call plug#begin('~/.vim/plugged')
 
-" Put your plugins here
+"    Put your plugins here
 
 "call plug#end()
 
