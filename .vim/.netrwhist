@@ -1,5 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =6
+let g:netrw_dirhistcnt =8
+let g:netrw_dirhist_8='/etc/nginx/sites-enabled'
+let g:netrw_dirhist_7='/home/karsten/.ssh'
 let g:netrw_dirhist_6='/home/karsten/.libshell'
 let g:netrw_dirhist_5='/home/karsten'
 let g:netrw_dirhist_4='/Users/karsten'

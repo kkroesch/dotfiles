@@ -26,33 +26,33 @@ bindkey '^b' backward-word
 bindkey '^f' forward-word
 
 # Developers tool belt
-path+=("$HOME/.npm-packages/bin")
-path+=("/go/bin")
+[ -d $HOME/.npm-packages/bin ] && path+=("$HOME/.npm-packages/bin")
+[ -d /go/bin ] && path+=("/go/bin")
 path+=("$HOME/.libshell")
 path+=("$HOME/.local/bin")
 [ -d $HOME/.cargo ] && source "$HOME/.cargo/env"
 [ -d /snap/bin ] && path+=('/snap/bin')
 
 # SSH Agent Tools
-export SSH_KEY_PATH="~/.ssh/id_ecdsa"
+export SSH_KEY_PATH="~/.ssh/id_id25519"
 
-export JUMPHOST=hjmpsys01.sharedtcs.net
 source ~/.libshell/ssh.sh
+[ -f $SESSION_FILE ] && ssh-reconnect
+
 source ~/.libshell/python.sh
-source ~/.libshell/docker.sh
 source ~/.libshell/network.sh
 source ~/.libshell/currency.sh
 source ~/.libshell/crypto.sh
 source ~/.libshell/vpn.sh
 
-HISTIGNORE="history:fc:ls:la"
+HISTIGNORE="history:fc:ls:la:cd:"
 HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit)"
 
-[ -f $SESSION_FILE ] && ssh-reconnect
 
 # Add additinal functions
 fpath=( ~/.zfunc "${fpath[@]}" )
 
+# Manage Aliases
 source ~/.alias
 
 # Use zmv: https://coderwall.com/p/yepegw/mass-renaming-files-with-zmv-zsh
@@ -67,8 +67,6 @@ zstyle ':completion:*:(ssh|scp|sftp|rsync):*' hosts `grep '^Host' ~/.ssh/config 
 setopt auto_cd
 cdpath=($HOME/Documents/ $HOME/Projects $HOME/Learn $HOME)
 
-# Only works on Mac with iTerm
-# test -e ".libshell/iterm2_shell_integration.zsh" && source ".libshell/iterm2_shell_integration.zsh"
 
 # Display host name when logged in remotely
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
@@ -78,8 +76,6 @@ fi
 # Turn off all beeps
 unsetopt BEEP
 
-export VAULT_ADDR='http://vault.ads.ktag.ch'
-export VAULT_TOKEN='hvs.xxxxxxxxxxxxxxxxxxxxxtGv'
 
 # Prevent GUI dialog for passphrase:
 export GPG_TTY=$(tty)
