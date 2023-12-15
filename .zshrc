@@ -76,7 +76,6 @@ fi
 # Turn off all beeps
 unsetopt BEEP
 
-
 # Prevent GUI dialog for passphrase:
 export GPG_TTY=$(tty)
 
