@@ -40,6 +40,8 @@ source ~/.libshell/ssh.sh
 [ -f $SESSION_FILE ] && ssh-reconnect
 
 source ~/.libshell/python.sh
+export PYTHONSTARTUP=$HOME/.pythonrc.py
+
 source ~/.libshell/network.sh
 source ~/.libshell/currency.sh
 source ~/.libshell/crypto.sh
