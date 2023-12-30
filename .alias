@@ -13,3 +13,5 @@ alias dotfile='git --git-dir=$DOTFILES --work-tree=$HOME'
 
 alias 2y="jq -r yamlify2"
 alias vif='vim $(fzf -e --height=15)'
+alias code='flatpak run com.visualstudio.code'
+
