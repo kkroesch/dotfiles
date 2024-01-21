@@ -27,7 +27,7 @@ bindkey '^f' forward-word
 
 # Developers tool belt
 [ -d $HOME/.npm-packages/bin ] && path+=("$HOME/.npm-packages/bin")
-[ -d /go/bin ] && path+=("/go/bin")
+[ -d $HOME/go/bin ] && path+=("$HOME/go/bin")
 path+=("$HOME/.libshell")
 path+=("$HOME/.local/bin")
 [ -d $HOME/.cargo ] && source "$HOME/.cargo/env"
