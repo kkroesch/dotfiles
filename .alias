@@ -16,6 +16,7 @@ alias vif='vim $(fzf -e --height=15)'
 alias code='flatpak run com.visualstudio.code'
 alias pkgs="nala search"
 alias pkgi="sudo nala install -y"
+alias lc="tr '[:upper:]' '[:lower:]'"
 
 csh() {
    # Open shell for container
