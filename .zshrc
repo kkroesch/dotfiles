@@ -16,7 +16,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python vagrant terraform kubectl )
+plugins=(sudo git python kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -27,7 +27,7 @@ bindkey '^f' forward-word
 
 # Developers tool belt
 [ -d $HOME/.npm-packages/bin ] && path+=("$HOME/.npm-packages/bin")
-[ -d /go/bin ] && path+=("/go/bin")
+[ -d $HOME/go/bin ] && path+=("$HOME/go/bin")
 path+=("$HOME/.libshell")
 path+=("$HOME/.local/bin")
 [ -d $HOME/.cargo ] && source "$HOME/.cargo/env"
@@ -80,4 +80,20 @@ unsetopt BEEP
 
 # Prevent GUI dialog for passphrase:
 export GPG_TTY=$(tty)
+
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/karsten/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/karsten/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/karsten/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/karsten/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
 
