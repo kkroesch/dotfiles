@@ -16,7 +16,7 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python kubectl)
+plugins=(sudo git python golang kubectl)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -26,12 +26,26 @@ bindkey '^b' backward-word
 bindkey '^f' forward-word
 
 # Developers tool belt
+
+# Node.JS
 [ -d $HOME/.npm-packages/bin ] && path+=("$HOME/.npm-packages/bin")
-[ -d $HOME/go/bin ] && path+=("$HOME/go/bin")
+
+# Go
+if [ -d $HOME/go/bin ] 
+then
+    export GOPATH=$HOME/go
+    export GOMODCACHE=$HOME/.gomodcache
+    path+=("$HOME/go/bin")
+fi
+
+# Rust
+[ -d $HOME/.cargo ] && source "$HOME/.cargo/env"
+
 path+=("$HOME/.libshell")
 path+=("$HOME/.local/bin")
-[ -d $HOME/.cargo ] && source "$HOME/.cargo/env"
 [ -d /snap/bin ] && path+=('/snap/bin')
+[ -d /opt/vscode  ] && path+=('/opt/vscode/bin')
+[ -d /opt/node  ] && path+=('/opt/node/bin')
 
 # SSH Agent Tools
 export SSH_KEY_PATH="~/.ssh/id_id25519"
@@ -81,19 +95,4 @@ unsetopt BEEP
 # Prevent GUI dialog for passphrase:
 export GPG_TTY=$(tty)
 
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/karsten/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/karsten/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/karsten/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/karsten/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
 
