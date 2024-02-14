@@ -14,7 +14,7 @@ function sub_help(){
     echo "Subcommands:"
     echo "    \e[1;37m create \e[0m    Creates a new backup archive for today"
     echo "    \e[1;37m list   \e[0m    List archives"
-    echo "    \e[1;37m restore <NAME>  \e[0m Mount archive <NAME> (usually in form a-YY-MM-dd) into ~/.restore"
+    echo "    \e[1;37m mount <NAME>  \e[0m Mount archive <NAME> (usually in form a-YY-MM-dd) into ~/.restore"
     echo ""
     echo "For help with each subcommand run:"
     echo "$prog_name <subcommand> -h|--help"
