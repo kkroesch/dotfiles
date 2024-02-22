@@ -18,6 +18,7 @@ alias vif='vim $(fzf -e --height=15)'
 alias pkgs="nala search"
 alias pkgi="sudo nala install -y"
 alias lc="tr '[:upper:]' '[:lower:]'"
+alias tf="terraform"
 
 csh() {
    # Open shell for container
