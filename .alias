@@ -20,6 +20,10 @@ alias pkgi="sudo nala install -y"
 alias lc="tr '[:upper:]' '[:lower:]'"
 alias tf="terraform"
 
+export BACKUP_FOLDER=/var/backup
+alias mksnap="sudo btrfs subvolume snapshot /home ${BACKUP_FOLDER}/home-$(date +'%a-%Y-%m-%d_%H:%M')"
+alias cleansnap="find ${BACKUP_FOLDER} -maxdepth 1 -type d -mtime +30 -exec echo Cleaning up {} \; -exec sudo btrfs subvolume delete {} \;"
+
 csh() {
    # Open shell for container
  podman exec -it $1 bash

@@ -47,6 +47,8 @@ path+=("$HOME/.local/bin")
 [ -d /opt/vscode  ] && path+=('/opt/vscode/bin')
 [ -d /opt/node  ] && path+=('/opt/node/bin')
 
+[ -d '/usr/local/cuda-12.3/bin' ] && path+=('/usr/local/cuda-12.3/bin')
+
 # SSH Agent Tools
 export SSH_KEY_PATH="~/.ssh/id_id25519"
 
@@ -95,4 +97,4 @@ unsetopt BEEP
 # Prevent GUI dialog for passphrase:
 export GPG_TTY=$(tty)
 
-
+eval "$(zoxide init --cmd cd zsh)"
