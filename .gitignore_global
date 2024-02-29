@@ -5,3 +5,5 @@ Thumbs.db
 .ssh/password
 *.swp
 .vault_pass
+./ssh/config
+./ssh/id_*
