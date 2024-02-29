@@ -33,7 +33,6 @@ bindkey '^f' forward-word
 # Go
 if [ -d $HOME/go/bin ] 
 then
-    export GOPATH=$HOME/go
     export GOMODCACHE=$HOME/.gomodcache
     path+=("$HOME/go/bin")
 fi
