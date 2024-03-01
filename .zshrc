@@ -16,7 +16,14 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git python golang kubectl)
+plugins=(
+    sudo 
+    git 
+    python 
+    golang 
+    kubectl
+    systemd
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -75,14 +82,9 @@ source ~/.alias
 # Use zmv: https://coderwall.com/p/yepegw/mass-renaming-files-with-zmv-zsh
 autoload -U zmv
 
-# Autocomplete host and domain names from .ssh/config
-autoload -Uz compinit
-compinit
-zstyle ':completion:*:(ssh|scp|sftp|rsync):*' hosts `grep '^Host' ~/.ssh/config | grep -v '[?*]' | cut -d ' ' -f 2- | tr ' ' '\n' | sort -u`
-
 # CDPATH
-setopt auto_cd
-cdpath=($HOME/Documents/ $HOME/Projects $HOME/Learn $HOME)
+#setopt auto_cd
+#cdpath=($HOME/Documents/ $HOME/Projects $HOME/Learn $HOME)
 
 
 # Display host name when logged in remotely
@@ -96,4 +98,4 @@ unsetopt BEEP
 # Prevent GUI dialog for passphrase:
 export GPG_TTY=$(tty)
 
-eval "$(zoxide init --cmd cd zsh)"
+#eval "$(zoxide init --cmd cd zsh)"
