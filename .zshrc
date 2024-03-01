@@ -92,6 +92,12 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     PS1="${HOST} $PS1"
 fi
 
+if [ -n "$IN_NIX_SHELL" ]
+then
+    PS1="[Nix] $PS1"
+fi
+
+
 # Turn off all beeps
 unsetopt BEEP
 
@@ -99,3 +105,5 @@ unsetopt BEEP
 export GPG_TTY=$(tty)
 
 #eval "$(zoxide init --cmd cd zsh)"
+#eval "$(atuin init zsh)"
+
