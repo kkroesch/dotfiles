@@ -65,9 +65,7 @@ source ~/.libshell/python.sh
 export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 source ~/.libshell/network.sh
-source ~/.libshell/currency.sh
-source ~/.libshell/crypto.sh
-source ~/.libshell/vpn.sh
+source ~/.libshell/postgres.sh
 
 HISTIGNORE="history:fc:ls:la:cd:"
 HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit)"
@@ -104,6 +102,10 @@ unsetopt BEEP
 # Prevent GUI dialog for passphrase:
 export GPG_TTY=$(tty)
 
-#eval "$(zoxide init --cmd cd zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 #eval "$(atuin init zsh)"
 
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
