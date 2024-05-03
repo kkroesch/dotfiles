@@ -1,0 +1,128 @@
+#!/usr/bin/env zsh
+
+##########################################
+#   _____ ____   ____ _     ___
+#  | ____/ ___| / ___| |   |_ _|
+#  |  _| \___ \| |   | |    | |
+#  | |___ ___) | |___| |___ | |
+#  |_____|____/ \____|_____|___|
+#
+##########################################
+
+prog_name=$(basename $0)
+
+# Default values -- can also be set in .envrc or .zshenv
+HOST=${ELASTIC_HOST:-localhost}
+PORT=${ELASTIC_PORT:-9200}
+USER=${ELASTIC_USER:-elastic}
+PASSWORD=${ELASTIC_PASSWORD:-changeme}
+DEFAULT_INDEX=${ELASTIC_INDEX:-logstash-*}
+
+zparseopts -E -D -- \
+   H:=es_host -host:=es_host \
+   u:=es_user -user:=es_user \
+   p:=es_port \
+   -pass:=es_password
+
+if [[ -v $USER ]]
+then
+  ES_URL=https://${es_user:USER}:${es_password:-PASSWORD}@${es_host:-HOST}:${es_port:-PORT}
+else
+  ES_URL=http://${es_host:-HOST}:${es_port:-PORT}
+fi
+
+
+#
+# Utility functions for colored output
+#
+
+function ok() {
+    echo -e "\e[1;32m$@\e[0m"
+}
+
+function error() {
+    echo -e "\e[1;31mERROR: \e[0m\e[31m$@\e[0m"
+}
+
+function warning() {
+    echo -e "\e[33mWARNING: $@\e[0m"
+}
+
+function fatal() {
+    error $1
+    exit 1
+}
+
+# Check Requirements
+hash http 2>/dev/null   || warning "HTTPie is not installed. Some formatting will be ugly or not work at all."
+hash jq   2>/dev/null   || warning "Jq is not installed. Some formatting will be ugly or not work at all."
+hash yq   2>/dev/null   || warning "Yq is not installed. Some formatting will be ugly or not work at all."
+
+#
+# Sub-Commands
+#
+
+function sub_help(){
+    echo "Usage: $prog_name <subcommand> [options]\n"
+    echo "Subcommands:"
+    echo "    info                  Show cluster status."
+    echo "    ls                    List indexes."
+    echo "    query [index] [query] Search index for query."
+    echo "    rm index doc_id       Delete document with doc_id."
+    echo "    cat index doc_id      Show document with doc_id."
+    echo "    drop index            Delete index."
+    echo "    load index [file]     Read JSON file or STDIN into index."
+    echo ""
+    echo "Options:"
+    echo "    -h, --help            Show this help."
+    echo "    -u, --user            Username for basic auth."
+    echo "    -p, --password        Password for basic auth."
+    echo "    -H, --host            Elasticsearch host."
+    echo "    -P, --port            Elasticsearch port."
+    echo ""
+    echo "For help with each subcommand run:"
+    echo "$prog_name <subcommand> -h|--help"
+    echo ""
+    echo "Examples:"
+    echo "    $prog_name -H gieng6ohgoi0eiY0.cloud.elastic.co -p 443 info"
+    echo "    $prog_name ls"
+}
+
+
+function sub_info() {
+  # Show information about cluster health
+  http ${ES_URL}/_cluster/health \
+  | jq -r 'to_entries[] | "\(.key): \(.value)"'
+}
+
+
+function sub_ls() {
+  # List indices
+  http ${ES_URL}/_cat/indices
+}
+
+
+function sub_query() {
+  # Show information about cluster health
+  index=$2
+  query=$3
+  http ${ES_URL}/_search/$2 
+}
+
+
+subcommand=$1
+
+case $subcommand in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "Run '$prog_name --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac

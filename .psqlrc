@@ -1,0 +1,8 @@
+\set QUIET 1
+\set PROMPT1 '%n@%M:%> %/%R%# '
+\set PROMPT2 '%M %R%# '
+\set VERBOSITY verbose
+\set HISTFILE ~/.psql_history
+\set HISTCONTROL ignoreboth
+\x auto
+\set QUIET 0

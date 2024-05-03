@@ -1,0 +1,12 @@
+[Unit]
+Description=Onedev COntainer
+After=local-fs.target
+
+[Container]
+Image=docker.io/1dev/server:latest
+Volume=/home/karsten/onedev:/opt/onedev
+PublishPort=6610-6611
+
+[Install]
+# Start by default on boot
+WantedBy=multi-user.target default.target

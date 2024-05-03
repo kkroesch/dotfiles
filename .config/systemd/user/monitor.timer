@@ -1,0 +1,9 @@
+[Unit]
+Description=Timer for monitoring service
+
+[Timer]
+OnCalendar=*-*-* *:*:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target
