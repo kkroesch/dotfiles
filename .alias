@@ -20,8 +20,8 @@ alias pkgi="sudo nala install -y"
 alias lc="tr '[:upper:]' '[:lower:]'"
 alias tf="terraform"
 
-alias emacsd="emacs --daemon &"
-alias emacs="emacs -c -a 'emacs' &"
+alias emacsd="/usr/bin/emacs --daemon &"
+alias emacs="/usr/bin/emacsclient -c -a 'emacs' &"
 alias doom=".config/emacs/bin/doom"
 
 export BACKUP_FOLDER=/var/backup
