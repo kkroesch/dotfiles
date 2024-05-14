@@ -105,6 +105,6 @@ export GPG_TTY=$(tty)
 eval "$(zoxide init --cmd cd zsh)"
 
 # Enable Fuzzy Finder (fzf) for searching command line history:
-source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/shell/key-bindings.zsh
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 bindkey '^R' fzf-history-widget
