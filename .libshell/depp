@@ -1,0 +1,192 @@
+#!/usr/bin/env zsh
+
+#####################################
+## 
+##       _
+##    __| | ___ _ __  _ __
+##   / _` |/ _ \ '_ \| '_ \
+##  | (_| |  __/ |_) | |_) |
+##   \__,_|\___| .__/| .__/
+##             |_|   |_|
+##
+##  Supports development process
+##
+#####################################
+
+prog_name=$(basename $0)
+
+# Set these in .envrc
+[ -z ${PROJECT} ]    && PROJECT="BWMAIL"
+[ -z ${REPOSITORY} ] && REPOSITORY="support-portal"
+[ -z ${EPIC} ] && EPIC=BWMAIL-2008
+
+#
+# Utility functions
+#
+
+function ok() {
+    echo -e "\e[1;32m$@\e[0m" >&2
+}
+
+function error() {
+    echo -e "\e[1;31mERROR: \e[0m\e[31m$@\e[0m" >&2
+}
+
+function warning() {
+    echo -e "\e[33mWARNING: $@\e[0m" >&2
+}
+
+function fatal() {
+    error $1 >&2
+    exit 1
+}
+
+# Check Requirements
+hash git 2>/dev/null  || fatal "Git is not installed. You are no developer, are you?"
+hash gh 2>/dev/null || fatal "Github CLI is not installed. Get it on Github: https://github.com/"
+hash glab 2>/dev/null || warning "Gitlab CLI is not installed. Get it on Github: https://github.com/"
+hash jq 2>/dev/null   || warning "Jq is not installed. Some formatting will be ugly or not work at all."
+
+#
+# Sub-Commands
+#
+
+function sub_help(){
+    echo "Usage: $prog_name <subcommand> [options]\n"
+    echo "Subcommands:"
+    echo "    info           Show information about environment."
+    echo "    project        Show repositories in Bitbucket project."
+    echo "    todo           Show open tasks for the epic."
+    echo "    start <ISSUE>  Start working on an issue. Will branch and push branch to remote."
+    echo "    fix <ISSUE>    Commits a fix and comments a link to commit message in Jira."
+    echo "    pr <TITLE>     Create pull request with given TITLE for current branch destinating to development branch."
+    echo "    prs            List pull requests."
+    echo "    stage <ISSUE>  Deploy to stage, comment timestamp in Jira and assign to reporter for testing."
+    echo "    prod <ISSUE>   Deploy to production and comment timestamp in Jira."
+    echo "    gist <TEMPLATE> Insert a Gist template -- details see gists.sh"
+    echo ""
+    echo "For help with each subcommand run:"
+    echo "$prog_name <subcommand> -h|--help"
+    echo ""
+}
+
+function sub_info() {
+    ISSUE=$1
+    echo "Repository:     $REPOSITORY"
+    echo "Project:        $PROJECT"
+    [ -z ${ISSUE} ] || echo "Issue:          $ISSUE"
+    cf target
+}
+
+function sub_project() {
+    curl -u $USER:$(pass scs/corproot) \
+        https://git.swisscom.com/rest/api/1.0/projects/$PROJECT/repos | 
+        jq '.values[] | .name + ":  " + .description'
+}
+
+function sub_todo() {
+    jira epic list $EPIC
+}
+
+function sub_start() {
+    ISSUE=$1
+    [ -z ${ISSUE} ] && fatal "Need to specify Jira issue. Exiting."
+    # git checkout -b issue/$ISSUE
+    jira assign $ISSUE $USER
+    jira transition Implementation $ISSUE --noedit
+}
+
+function sub_fix() {
+    ISSUE=$1
+    [ -z ${ISSUE} ] && fatal "Need to specify Jira issue. Exiting."
+    last_commit=$(git log -n1 | head -1 | cut -d' ' -f2)
+    short_hash=${last_commit:0:12}
+    link="https://git.swisscom.com/projects/$PROJECT/repos/$REPOSITORY/commits/$last_commit"
+    output="Fixed in [$short_hash|$link]"
+    jira comment $ISSUE -m "$output" --noedit
+}
+
+function sub_pr() {
+    TITLE=$1
+    [ -z ${TITLE} ] && fatal "Please specify a title. Exiting."
+    read -r -d '' pull_request <<-EOM
+    {
+        "title": "${TITLE}",
+        "fromRef": {
+            "id": "refs/heads/development",
+            "repository": {
+                "slug": "${REPOSITORY}",
+                "name": null,
+                "project": {
+                    "key": "${PROJECT}"
+                }
+            }
+        },
+        "toRef": {
+            "id": "refs/heads/master",
+            "repository": {
+                "slug": "${REPOSITORY}",
+                "name": null,
+                "project": {
+                    "key": "${PROJECT}"
+                }
+            }
+        }
+    }
+EOM
+    curl https://git.swisscom.com/rest/api/1.0/projects/$PROJECT/repos/$REPOSITORY/pull-requests \
+        -u $USER:$(pass scs/corproot) \
+        --header 'Content-Type: application/json' \
+        -X POST \
+        --data $pull_request |
+    jq '.title + " " + .state'
+}
+
+function sub_prs() {
+    curl https://git.swisscom.com/rest/api/1.0/projects/$PROJECT/repos/$REPOSITORY/pull-requests \
+        -u $USER:$(pass scs/corproot) |
+    jq '.values[] | .title + " " + .state + " " + .links.self[0].href'
+}
+
+function sub_stage() {
+    ISSUE=$1
+    [ -z ${ISSUE} ] && fatal "Need to specify Jira issue. Exiting."
+    timestamp=$(date +' on %d.%m. at %H:%M')
+    # cf target -s stage
+    # cf push && 
+    jira comment $ISSUE -m "Staged $timestamp" --noedit
+    reporter=$(jira $ISSUE | grep reporter | cut -d' ' -f2)
+    jira transition Testing $ISSUE --noedit
+    jira assign $ISSUE $reporter
+}
+
+function sub_prod() {
+    ISSUE=$1
+    [ -z ${ISSUE} ] && fatal "Need to specify Jira issue. Exiting."
+    # cf target -s production
+    warning "You are on production target."
+    echo "Not implemented"
+    ok "Now productive"
+}
+
+function sub_gist() {
+    source gists.sh
+    $1
+}
+
+subcommand=$1
+
+case $subcommand in
+    "" | "-h" | "--help")
+        sub_help
+        ;;
+    *)
+        shift
+        sub_${subcommand} $@
+        if [ $? = 127 ]; then
+            echo "Error: '$subcommand' is not a known subcommand." >&2
+            echo "Run '$prog_name --help' for a list of known subcommands." >&2
+            exit 1
+        fi
+        ;;
+esac
