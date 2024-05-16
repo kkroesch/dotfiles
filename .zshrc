@@ -31,6 +31,8 @@ plugins=(
     golang 
     kubectl
     systemd
+    ansible
+    terraform
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -74,6 +76,7 @@ export PYTHONSTARTUP=$HOME/.pythonrc.py
 
 source ~/.libshell/network.sh
 source ~/.libshell/postgres.sh
+source ~/.libshell/p10kprompt.sh
 
 HISTIGNORE="history:fc:ls:la:cd:"
 HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit)"
