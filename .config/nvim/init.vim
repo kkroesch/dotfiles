@@ -43,14 +43,25 @@ Plug 'tpope/vim-surround'
 " Terminal
 Plug 'voldikss/vim-floaterm'
 
+" Markdown Plugins
+Plug 'preservim/vim-markdown'
+Plug 'dhruvasagar/vim-table-mode'
+Plug 'ellisonleao/glow.nvim'
+
+" Org Mode Plugins
+Plug 'jceb/vim-orgmode'
+Plug 'nvim-orgmode/orgmode'
+Plug 'nvim-neorg/neorg'
+
 call plug#end()
 
 " Gruvbox Theme
 syntax enable
 set number
+set wrap
 set background=dark
 colorscheme gruvbox
 
 lua require('config')
 
-NvimTreeOpen
+" NvimTreeOpen
