@@ -9,6 +9,10 @@ Plug 'folke/tokyonight.nvim'
 " Statusbar
 Plug 'hoob3rt/lualine.nvim'
 
+" Tab bar 
+Plug 'nvim-tree/nvim-web-devicons' " OPTIONAL: for file icons
+Plug 'romgrk/barbar.nvim'
+
 " Fuzzy Finder
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -56,12 +60,19 @@ Plug 'nvim-neorg/neorg'
 call plug#end()
 
 " Gruvbox Theme
-syntax enable
-set number
-set wrap
 set background=dark
 colorscheme gruvbox
 
+syntax enable
+set number
+
+" Automatischer Zeilenumbruch 
+set textwidth=80
+set wrap
+set linebreak
+set showbreak=↪
+
+" Include Lua config
 lua require('config')
 
-" NvimTreeOpen
+
