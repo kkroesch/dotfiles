@@ -60,7 +60,6 @@ fi
 path+=("$HOME/.libshell")
 path+=("$HOME/.local/bin")
 [ -d /snap/bin ] && path+=('/snap/bin')
-[ -d /opt/vscode  ] && path+=('/opt/vscode/bin')
 [ -d /opt/node  ] && path+=('/opt/node/bin')
 
 [ -d '/usr/local/cuda-12.3/bin' ] && path+=('/usr/local/cuda-12.3/bin')
