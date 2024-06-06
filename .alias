@@ -5,11 +5,10 @@ hash lsd 2> /dev/null && alias la="lsd -lAh"
 # Dotfiles Management
 export DOTFILES=$HOME/Projects/dotfiles.git
 alias dotfile='git --git-dir=$DOTFILES --work-tree=$HOME'
-alias dst="dotfile status"
-alias dpl="dotfile pull"
-alias dps="dotfile push"
-alias dfa="dotfile add"
-alias dco="dotfile commit"
+alias dotstat="dotfile status"
+alias dotpull="dotfile pull"
+alias dotpush="dotfile push"
+alias dotadd="dotfile add"
 
 # Command line helper
 alias mkpass="openssl rand -base64 24"
