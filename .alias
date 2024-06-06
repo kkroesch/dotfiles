@@ -20,6 +20,9 @@ alias lc="tr '[:upper:]' '[:lower:]'"
 alias vi="nvim"
 alias vif='vi $(fzf -e --height=15)'
 
+# VS Code as Flatpak
+alias code="/var/lib/flatpak/exports/bin/com.visualstudio.code"
+
 # Doom Emacs
 alias emacsd="/usr/bin/emacs --daemon &"
 alias emacs="/usr/bin/emacsclient -c -a 'emacs' &"

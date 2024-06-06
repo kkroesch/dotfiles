@@ -1,0 +1,31 @@
+#!/usr/bin/env ansible-playbook
+
+---
+- name: Sync dotfiles repository
+  hosts: localhost
+
+  tasks:
+
+    - name: Define dotfiles directory
+      set_fact:
+        dotfiles: "{{ lookup('env', 'HOME') }}/.dotfiles.git"
+      tags: define
+
+    - name: Add all changes
+      command: git --git-dir={{ dotfiles }} --work-tree={{ lookup('env', 'HOME') }} add .
+      tags: add
+
+    - name: Commit changes
+      command: git --git-dir={{ dotfiles }} --work-tree={{ lookup('env', 'HOME') }} commit -m "Sync local changes"
+      tags: commit
+      register: git_commit_result
+      failed_when: git_commit_result.rc != 0 and "nothing to commit" not in git_commit_result.stderr
+
+    - name: Pull changes from remote
+      command: git --git-dir={{ dotfiles }} --work-tree={{ lookup('env', 'HOME') }} pull origin master
+      tags: pull
+
+    - name: Push changes to remote
+      command: git --git-dir={{ dotfiles }} --work-tree={{ lookup('env', 'HOME') }} push origin master
+      tags: push
+
