@@ -7,6 +7,12 @@ set imap_pass = `~/.mutt/password.sh`
 set folder = "imaps://imap.mail.me.com/"
 set spoolfile = "+INBOX"
 
+# Verzeichnisbaum anzeigen
+set imap_list_subscribed = yes
+
+# Überprüfen, ob Ordner abonniert sind
+set imap_check_subscribed = yes
+
 #Cache
 set header_cache = ~/.mutt/cache/headers
 set message_cachedir = ~/.mutt/cache/bodies
@@ -35,9 +41,6 @@ set sort_aux = 'last-date-received'
 
 # Mailboxen
 mailboxes +INBOX
-mailboxes +[Gmail]/Sent
-mailboxes +[Gmail]/Drafts
-mailboxes +[Gmail]/All
 
 # Sidebar Konfiguration
 set sidebar_visible = yes
