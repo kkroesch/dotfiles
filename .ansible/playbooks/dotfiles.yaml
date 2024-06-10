@@ -5,9 +5,15 @@
   vars:
     dotfile_repo: "https://github.com/kkroesch/dotfiles.git"
     public_ssh_key: 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINJyFU5kpqGZeViom71S+3QMCIKWmSCMrUTrJKgm0vgF'
+    # ansible-playbook dotffiles.yaml -e "run_cleanup=true"
+    run_cleanup: false  # Standardmäßig wird das Cleanup nicht ausgeführt
 
   tasks:
 
+    ##
+    ## Dotfiles
+    ##
+    
     - name: Klone Dotfiles in ein Bare-Repo
       git:
         repo: '{{ dotfile_repo }}'
@@ -21,8 +27,29 @@
       shell: git --git-dir=/home/{{ ansible_user_id }}/.dotfiles/ --work-tree=/home/{{ ansible_user_id }} checkout -f
       ignore_errors: yes
 
+
+    ##
+    ## NeoVim
+    ##
+
     - name: Neovim Plugins
       shell: curl -fLo /home/{{ ansible_user_id }}/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+    - name: Neovim Kickstart
+      file:
+        path: "{{ lookup('env', 'XDG_CONFIG_HOME') | default(ansible_env.HOME + '/.config', true) }}/nvim"
+        state: directory
+        mode: '0755'
+
+    - name: Clone kickstart.nvim repository
+      git:
+        repo: https://github.com/nvim-lua/kickstart.nvim.git
+        dest: "{{ lookup('env', 'XDG_CONFIG_HOME') | default(ansible_env.HOME + '/.config', true) }}/nvim"
+        update: no
+
+    ##
+    ## Powerlevel10k
+    ##
 
     - name: Installiere Powerlevel10k Theme
       git:
@@ -36,6 +63,10 @@
         line: 'ZSH_THEME="powerlevel10k/powerlevel10k"'
         create: yes
           
+    ##
+    ## SSH Keys
+    ##
+    
     - name: Kopiere den öffentlichen SSH-Schlüssel in authorized_keys
       lineinfile:
         path: /home/{{ ansible_user_id }}/.ssh/authorized_keys
@@ -45,4 +76,19 @@
         group: "{{ ansible_user_id }}"
         mode: '0600'
 
+    ##
+    ## Cleanup
+    ##
+
+    - name: Get list of Git-managed files
+      command: git --git-dir=/home/{{ ansible_user_id }}/.dotfiles/ --work-tree=/home/{{ ansible_user_id }} ls-files
+      register: git_files
+      when: run_cleanup
+
+    - name: Delete Git-managed files
+      file:
+        path: "{{ item }}"
+        state: absent
+      with_items: "{{ git_files.stdout_lines }}"
+      when: run_cleanup
 
