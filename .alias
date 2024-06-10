@@ -1,16 +1,10 @@
 
+# Check for lsd
 hash lsd 2> /dev/null && alias la="lsd -lAh"
-alias nose="nose2-3"
 
-alias open="xdg-open"
-alias natp="http --body ifconfig.co"
-
-
-alias mkpass="openssl rand -base64 24"
-
+# Dotfiles Management
+export DOTFILES=$HOME/Projects/dotfiles.git
 alias dotfile='git --git-dir=$DOTFILES --work-tree=$HOME'
-alias dst="dotfile status"
-alias dll="dotfile pull"
 function dotsync() {
     dotfile add -u $HOME
     dotfile commit -m "Syncing dotfiles"
@@ -20,25 +14,31 @@ function dotsync() {
 
 alias bigterm="alacritty -o font.size=21"
 
+# Command line helper
+alias mkpass="openssl rand -base64 24"
 alias 2y="jq -r yamlify2"
-alias pkgs="nala search"
-alias pkgi="sudo nala install -y"
 alias lc="tr '[:upper:]' '[:lower:]'"
 alias vi="nvim"
 alias ps="procs -t"
 
+# Vi Shortcuts
+alias vi="nvim"
+alias vif='vi $(fzf -e --height=15)'
+
+# VS Code as Flatpak
+alias code="/var/lib/flatpak/exports/bin/com.visualstudio.code"
+
+# Doom Emacs
 alias emacsd="/usr/bin/emacs --daemon &"
 alias emacs="/usr/bin/emacsclient -c -a 'emacs' &"
 alias doom=".config/emacs/bin/doom"
 alias nemacs="/usr/bin/emacs -nw"
 
+alias mutt="neomutt"
+
+# Backup with BtrFS
 alias bw="NODE_TLS_REJECT_UNAUTHORIZED=0 bw"
 
 export BACKUP_FOLDER=/var/backup
 alias mksnap="sudo btrfs subvolume snapshot /home ${BACKUP_FOLDER}/home-$(date +'%a-%Y-%m-%d_%H:%M')"
 alias cleansnap="find ${BACKUP_FOLDER} -maxdepth 1 -type d -mtime +30 -exec echo Cleaning up {} \; -exec sudo btrfs subvolume delete {} \;"
-
-csh() {
-   # Open shell for container
- podman exec -it $1 bash
-}

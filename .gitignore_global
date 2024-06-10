@@ -7,3 +7,4 @@ Thumbs.db
 .vault_pass
 .ssh/*
 .pgpass
+.mutt/cache

@@ -1,0 +1,90 @@
+set ssl_starttls=yes
+set ssl_force_tls=yes
+
+# IMAP
+set imap_user = "kkroesch@me.com"
+set imap_pass = `~/.mutt/password.sh`
+set folder = "imaps://imap.mail.me.com/"
+set spoolfile = "+INBOX"
+
+# Verzeichnisbaum anzeigen
+set imap_list_subscribed = yes
+
+# Überprüfen, ob Ordner abonniert sind
+set imap_check_subscribed = yes
+
+#Cache
+set header_cache = ~/.mutt/cache/headers
+set message_cachedir = ~/.mutt/cache/bodies
+set certificate_file = ~/.mutt/certificates
+
+# SMTP
+set smtp_url = "smtp://kkroesch@me.com@smtp.mail.me.com:587/"
+set smtp_pass = `~/.mutt/password.sh`
+set from = "karsten@kroesch.ch"
+set realname = "Karsten Kroesch"
+
+set mail_check = 60
+set timeout = 10
+set imap_keepalive = 900
+
+set move = no
+set imap_keepalive = 900
+
+# Verwende w3m für HTML-Mails
+auto_view text/html
+set mailcap_path = ~/.mutt/mailcap
+
+# Mailsortierung
+set sort = 'reverse-date-received'
+set sort_aux = 'last-date-received'
+
+# Mailboxen
+mailboxes +INBOX
+
+# Sidebar Konfiguration
+set sidebar_visible = yes
+set sidebar_width = 25
+set sidebar_format = "%B%?F? [%F]?%* %?N?%N/?%S"
+
+bind index,pager \CB sidebar-prev
+bind index,pager \CC sidebar-next
+bind index \CO sidebar-open
+bind index,pager \CV sidebar-toggle-visible
+
+# Geteilte Ansicht
+set pager_index_lines = 10
+
+# Farben
+color hdrdefault       brightyellow   default
+color index            green          black
+color status           yellow         blue
+color tree             magenta        black
+color normal           white          black
+color quoted           cyan           black
+color signature        red            black
+color indicator        brightyellow   black
+color error            red            white
+color message          brightcyan     black
+color search           yellow         black
+color attachment       brightmagenta  black
+color header           brightgreen    black ^(From|Subject):
+color bold             brightgreen    default
+color underline        brightyellow   default
+
+# Erweiterte Konfiguration für Neomutt
+# Notmuch Integration
+#set notmuch=/usr/bin/notmuch
+macro index <F5> "<enter-command>unset trash<enter><enter-command>set trash=+deleted<enter>"
+
+# Temporäre Dateien konfigurieren
+set tmpdir=~/.neomutt/tmp
+
+# Zusätzliche Sicherheitsoptionen
+set crypt_use_gpgme=yes
+
+# Erweiterte Header-Ansicht
+hdr_order Date From To Cc Subject
+ignore *             # Ignore all headers
+unignore From To Cc Date Subject # Unignore selected headers
+

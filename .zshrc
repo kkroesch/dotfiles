@@ -60,7 +60,6 @@ fi
 path+=("$HOME/.libshell")
 path+=("$HOME/.local/bin")
 [ -d /snap/bin ] && path+=('/snap/bin')
-[ -d /opt/vscode  ] && path+=('/opt/vscode/bin')
 [ -d /opt/node  ] && path+=('/opt/node/bin')
 
 [ -d '/usr/local/cuda-12.3/bin' ] && path+=('/usr/local/cuda-12.3/bin')
@@ -115,7 +114,7 @@ export GPG_TTY=$(tty)
 eval "$(zoxide init --cmd cd zsh)"
 
 # Enable Fuzzy Finder (fzf) for searching command line history:
-source /usr/share/fzf/shell/key-bindings.zsh
+source /usr/share/fzf/key-bindings.zsh
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 bindkey '^R' fzf-history-widget
 

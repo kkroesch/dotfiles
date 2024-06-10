@@ -1,0 +1,44 @@
+---
+- name: Configure SSH config based on workplace
+  hosts: localhost
+  vars:
+    workplace: "office"  # Set this variable to "office", "home", or "mobile"
+    ssh_config_dist: "{{ lookup('file', '~/.ssh/config.dist') }}"
+    ssh_config_files:
+      office:
+        - "office_host1"
+        - "office_host2"
+      home:
+        - "home_host1"
+        - "home_host2"
+      mobile:
+        - "mobile_host1"
+        - "mobile_host2"
+
+  tasks:
+    - name: Ensure .ssh directory exists
+      file:
+        path: "{{ ansible_env.HOME }}/.ssh"
+        state: directory
+        mode: '0700'
+
+    - name: Create the new SSH config file
+      copy:
+        dest: "{{ ansible_env.HOME }}/.ssh/config"
+        content: "{{ ssh_config_dist }}"
+        mode: '0600'
+
+    - name: Include additional SSH config files
+      lineinfile:
+        path: "{{ ansible_env.HOME }}/.ssh/config"
+        line: "!include {{ item }}"
+        state: present
+      with_items: "{{ ssh_config_files[workplace] }}"
+      notify: Restart SSH
+
+  handlers:
+    - name: Restart SSH
+      service:
+        name: ssh
+        state: restarted
+
