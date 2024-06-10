@@ -122,3 +122,7 @@ bindkey '^R' fzf-history-widget
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 . /home/karsten/.nix-profile/etc/profile.d/nix.sh
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)

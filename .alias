@@ -11,9 +11,12 @@ alias mkpass="openssl rand -base64 24"
 alias dotfile='git --git-dir=$DOTFILES --work-tree=$HOME'
 alias dst="dotfile status"
 alias dll="dotfile pull"
-alias dps="dotfile push"
-alias dfa="dotfile add"
-alias dco="dotfile commit"
+function dotsync() {
+    dotfile add -u $HOME
+    dotfile commit -m "Syncing dotfiles"
+    dotfile pull
+    dotfile push
+}
 
 alias bigterm="alacritty -o font.size=21"
 
@@ -28,6 +31,8 @@ alias emacsd="/usr/bin/emacs --daemon &"
 alias emacs="/usr/bin/emacsclient -c -a 'emacs' &"
 alias doom=".config/emacs/bin/doom"
 alias nemacs="/usr/bin/emacs -nw"
+
+alias bw="NODE_TLS_REJECT_UNAUTHORIZED=0 bw"
 
 export BACKUP_FOLDER=/var/backup
 alias mksnap="sudo btrfs subvolume snapshot /home ${BACKUP_FOLDER}/home-$(date +'%a-%Y-%m-%d_%H:%M')"
