@@ -12,9 +12,9 @@ alias dotfile='git --git-dir=$DOTFILES --work-tree=$HOME'
 alias dst="dotfile status"
 alias dll="dotfile pull"
 function dotsync() {
-    dotfile pull
     dotfile add -u $HOME
     dotfile commit -m "Syncing dotfiles"
+    dotfile pull --rebase
     dotfile push
 }
 
