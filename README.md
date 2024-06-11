@@ -1,30 +1,38 @@
 # dotfiles
-Configuration files for SSH and Tmux. Small helpers for daily work on the shell.
+
+Dotfiles for application configuration and shell scripts to ease the daily work
+on the command line. Applications covered are ZSH with Oh-my-ZSH and
+Powerlevel10k, Neovim, (Neo)mutt, Tmux, Ansible, Nix-Shell, jq, Ranger and Podman.
 
 ## Installation
 
-The most comfortable installation is via Git:
+Without the Dotfiles installed, you have the "chicken-egg-problem". While the
+installation can easily be performed via Ansible (playbooks are located in
+`.ansible/playbooks`) on additional machines, the initial installation process
+looks like:
 
 ```bash
-mkdir $HOME/Projects  
-export DOTFILES=$HOME/Projects/dotfiles.git # Or choose any other preferred location
+mkdir $HOME/.dotfiles  
+export DOTFILES=$HOME/.dotfiles.git # Or choose any other preferred location
 git init --bare $DOTFILES
 cd $DOTFILES
 git config init.defaultBranch master
 git remote add origin git@github.com:kkroesch/dotfiles.git
 cd
 # For convenience, add:
-echo 'export DOTFILES=$HOME/Projects/dotfiles.git' >> .zshrc
+echo 'export DOTFILES=${DOTFILES}' >> .zshenv
 echo 'alias dotfile="git --git-dir=$DOTFILES --work-tree=$HOME"' >> .alias
 dotfile config --local status.showUntrackedFiles no  # to ignore all the other stuff in $HOME
 
 # Finally, get the stuff:
-dotfile pull origin master
+dotfile pull origin main
 ```
 
 Use `dotfile add` and `dotfile commit` to add your own dotfiles.
 
 ## Features
+
+ - 
 
 ## Optional
 
