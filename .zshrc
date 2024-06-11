@@ -32,7 +32,6 @@ plugins=(
     kubectl
     systemd
     ansible
-    terraform
 )
 
 source $ZSH/oh-my-zsh.sh
