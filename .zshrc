@@ -99,11 +99,11 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     PS1="${HOST} $PS1"
 fi
 
+# NixOS
 if [ -n "$IN_NIX_SHELL" ]
 then
     PS1="[Nix] $PS1"
 fi
-
 
 # Turn off all beeps
 unsetopt BEEP
@@ -120,5 +120,4 @@ bindkey '^R' fzf-history-widget
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-. /home/karsten/.nix-profile/etc/profile.d/nix.sh
 
