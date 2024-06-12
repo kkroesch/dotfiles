@@ -46,9 +46,6 @@ bindkey '^f' forward-word
 # Node.JS
 [ -d $HOME/.npm-packages/bin ] && path+=("$HOME/.npm-packages/bin")
 
-# Load Angular CLI autocompletion.
-source <(ng completion script)
-
 # Go
 if [ -d $HOME/go/bin ] 
 then
@@ -65,16 +62,14 @@ path+=("$HOME/.local/bin")
 [ -d /opt/node  ] && path+=('/opt/node/bin')
 
 # SSH Agent Tools
-export SSH_KEY_PATH="~/.ssh/id_id25519"
+export SSH_KEY_PATH="~/.ssh/id_ed25519"
 source ~/.libshell/ssh.sh
 [ -f $SESSION_FILE ] && ssh-reconnect
 
 source ~/.libshell/python.sh
-export PYTHONSTARTUP=$HOME/.pythonrc.py
-
 source ~/.libshell/network.sh
 source ~/.libshell/postgres.sh
-source ~/.libshell/p10kprompt.sh
+#source ~/.libshell/p10kprompt.sh
 
 HISTIGNORE="history:fc:ls:la:cd:"
 HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit)"
