@@ -32,7 +32,6 @@ plugins=(
     kubectl
     systemd
     ansible
-    terraform
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -46,6 +45,9 @@ bindkey '^f' forward-word
 
 # Node.JS
 [ -d $HOME/.npm-packages/bin ] && path+=("$HOME/.npm-packages/bin")
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
 
 # Go
 if [ -d $HOME/go/bin ] 
@@ -61,8 +63,6 @@ path+=("$HOME/.libshell")
 path+=("$HOME/.local/bin")
 [ -d /snap/bin ] && path+=('/snap/bin')
 [ -d /opt/node  ] && path+=('/opt/node/bin')
-
-[ -d '/usr/local/cuda-12.3/bin' ] && path+=('/usr/local/cuda-12.3/bin')
 
 # SSH Agent Tools
 export SSH_KEY_PATH="~/.ssh/id_id25519"
@@ -122,6 +122,3 @@ bindkey '^R' fzf-history-widget
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 . /home/karsten/.nix-profile/etc/profile.d/nix.sh
 
-
-# Load Angular CLI autocompletion.
-source <(ng completion script)
