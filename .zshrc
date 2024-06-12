@@ -66,7 +66,6 @@ path+=("$HOME/.local/bin")
 
 # SSH Agent Tools
 export SSH_KEY_PATH="~/.ssh/id_id25519"
-
 source ~/.libshell/ssh.sh
 [ -f $SESSION_FILE ] && ssh-reconnect
 
@@ -79,7 +78,7 @@ source ~/.libshell/p10kprompt.sh
 
 HISTIGNORE="history:fc:ls:la:cd:"
 HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit)"
-
+unsetopt CORRECT
 
 # Add additinal functions
 fpath=( ~/.zfunc "${fpath[@]}" )
@@ -121,3 +120,8 @@ bindkey '^R' fzf-history-widget
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+. /home/karsten/.nix-profile/etc/profile.d/nix.sh
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
