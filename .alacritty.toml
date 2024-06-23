@@ -4,3 +4,13 @@ size = 15.0
 [window]
 opacity = 0.9
 
+[keyboard]
+bindings = [
+   { key = "N", mods = "Control|Shift", action = "CreateNewWindow" },
+   { key = ",", mods = "Control", action = "IncreaseFontSize" },
+   { key = "R", mods = "Control|Shift", action = "ResetFontSize" },
+   { key = "Enter", mods = "Control|Shift", action = "ToggleFullscreen" },
+   { key = "Enter", mods = "Control", action = "ToggleMaximized" },
+]
+
+
