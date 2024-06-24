@@ -3,7 +3,7 @@
 hash lsd 2> /dev/null && alias la="lsd -lAh"
 
 # Dotfiles Management
-export DOTFILES=$HOME/Projects/dotfiles.git
+export DOTFILES=$HOME/.dotfiles
 alias dotfile='git --git-dir=$DOTFILES --work-tree=$HOME'
 function dotsync() {
     dotfile add -u $HOME
@@ -13,6 +13,8 @@ function dotsync() {
 }
 
 alias bigterm="alacritty -o font.size=21"
+doch="sudo"
+please="sudo"
 
 # Command line helper
 alias mkpass="openssl rand -base64 24"
