@@ -8,6 +8,8 @@ function pwgen() {
 }
 
 function pgsuper() {
+    # Use for one-time installation of the database beside the postgres system
+    # user
     read -r -d '' SQL <<-EOF
 	CREATE ROLE dbadmin WITH LOGIN PASSWORD '$(pwgen)';
 	GRANT CONNECT ON DATABASE postgres TO dbadmin;
@@ -18,6 +20,7 @@ function pgsuper() {
 }
 
 function pgdb() {
+    # Create a new database with some reasonable users for hardened access.
     database=$1
     read -r -d '' SQL <<-EOF
 	-- Erstelle die Datenbank
