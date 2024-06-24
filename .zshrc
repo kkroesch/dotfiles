@@ -61,19 +61,15 @@ path+=("$HOME/.local/bin")
 [ -d /snap/bin ] && path+=('/snap/bin')
 [ -d /opt/node  ] && path+=('/opt/node/bin')
 
-[ -d '/usr/local/cuda-12.3/bin' ] && path+=('/usr/local/cuda-12.3/bin')
-
 # SSH Agent Tools
-export SSH_KEY_PATH="~/.ssh/id_id25519"
+export SSH_KEY_PATH="~/.ssh/id_ed25519"
 source ~/.libshell/ssh.sh
 [ -f $SESSION_FILE ] && ssh-reconnect
 
 source ~/.libshell/python.sh
-export PYTHONSTARTUP=$HOME/.pythonrc.py
-
 source ~/.libshell/network.sh
 source ~/.libshell/postgres.sh
-source ~/.libshell/p10kprompt.sh
+#source ~/.libshell/p10kprompt.sh
 
 HISTIGNORE="history:fc:ls:la:cd:"
 HISTORY_IGNORE="(history|ls|cd|fc|la|pwd|exit)"
@@ -98,11 +94,11 @@ if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     PS1="${HOST} $PS1"
 fi
 
+# NixOS
 if [ -n "$IN_NIX_SHELL" ]
 then
     PS1="[Nix] $PS1"
 fi
-
 
 # Turn off all beeps
 unsetopt BEEP

@@ -4,6 +4,7 @@ export EDITOR=/usr/bin/nvim
 export GITLAB_HOST=git.ag.ch
 export DOTFILES=$HOME/.dotfiles
 export NPM_PACKAGES="$HOME/.npm-packages"
+export LIBVIRT_DEFAULT_URI=qemu:///system
 
 if [ -e /home/karsten/.nix-profile/etc/profile.d/nix.sh ]; then . /home/karsten/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 . "$HOME/.cargo/env"

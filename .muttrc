@@ -42,6 +42,12 @@ set sort_aux = 'last-date-received'
 # Mailboxen
 mailboxes +INBOX
 
+# GnuPG
+set pgp_autosign = yes
+set pgp_sign_as = 0x89F66199949C11923E882BF8F402FFC26E6EC33A
+set crypt_use_gpgme = yes
+
+
 # Sidebar Konfiguration
 set sidebar_visible = yes
 set sidebar_width = 25
