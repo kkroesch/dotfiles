@@ -35,6 +35,13 @@ alias doom=".config/emacs/bin/doom"
 alias nemacs="/usr/bin/emacs -nw"
 
 alias mutt="neomutt"
+alias xopen="xdg-open"
+
+alias dps="docker ps -a"
+function dosh() {
+    container=$1
+    docker exec -it $container /bin/sh
+}
 
 # Backup with BtrFS
 alias bw="NODE_TLS_REJECT_UNAUTHORIZED=0 bw"
