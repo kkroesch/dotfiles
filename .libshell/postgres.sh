@@ -49,4 +49,18 @@ function pgdb() {
 	ALTER DEFAULT PRIVILEGES IN SCHEMA archive GRANT SELECT ON TABLES TO ${database}_report;
 EOF
 echo $SQL
+
+    read -r -d '' SQL <<-EOF
+	-- Zugriff auf die Datenbank ifür Superuser gewähren
+	GRANT CONNECT ON DATABASE ${database} TO dbadmin;
+	-- Zu der spezifischen Datenbank wechseln
+	\c ${database}
+	-- Zugriff auf das Schema gewähren
+	GRANT USAGE ON SCHEMA public TO dbadmin;
+	-- Berechtigungen auf alle bestehenden Tabellen im Schema gewähren
+	GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO dbadmin;
+	-- Standardberechtigungen für zukünftige Tabellen im Schema ändern
+	ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO dbadmin;
+EOF
+echo $SQL
 }
