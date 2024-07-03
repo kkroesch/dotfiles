@@ -16,4 +16,3 @@ bindings = [
    { key = "Enter", mods = "Control", action = "ToggleMaximized" },
 ]
 
-
