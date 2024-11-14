@@ -13,15 +13,14 @@ function dotsync() {
 }
 
 alias bigterm="alacritty -o font.size=21"
-doch="sudo"
-please="sudo"
+alias doch="sudo"
+alias please="sudo"
 
 # Command line helper
 alias mkpass="openssl rand -base64 24"
 alias 2y="jq -r yamlify2"
 alias lc="tr '[:upper:]' '[:lower:]'"
 alias vi="nvim"
-alias ps="procs -t"
 
 # Vi Shortcuts
 alias vi="nvim"
