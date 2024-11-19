@@ -6,6 +6,12 @@ Powerlevel10k, Neovim, (Neo)mutt, Tmux, Ansible, Nix-Shell, jq, Ranger and Podma
 
 ## Installation
 
+Some packages are needed beforehand so all the scripts and tools will work:
+
+```bash
+sudo dnf install lsd fzf podman dnf-plugins-core git-delta corkscrew
+```
+
 Without the Dotfiles installed, you have the "chicken-egg-problem". While the
 installation can easily be performed via Ansible (playbooks are located in
 `.ansible/playbooks`) on additional machines, the initial installation process
