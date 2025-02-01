@@ -102,4 +102,3 @@ fi
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 bindkey '^R' fzf-history-widget
 
-eval "$(starship init zsh)"
