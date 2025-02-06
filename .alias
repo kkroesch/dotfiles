@@ -26,8 +26,9 @@ alias vi="nvim"
 alias vi="nvim"
 alias vif='vi $(fzf -e --height=15)'
 
-# VS Code as Flatpak
-alias code="/var/lib/flatpak/exports/bin/com.visualstudio.code"
+# Flatpak Shortcuts
+alias code="flatpak run com.visualstudio.code"
+alias zed="flatpak run dev.zed.Zed"
 
 # Doom Emacs
 alias emacsd="/usr/bin/emacs --daemon &"

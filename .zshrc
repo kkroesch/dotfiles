@@ -102,3 +102,10 @@ fi
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 bindkey '^R' fzf-history-widget
 
+if [[ -n "$TOOLBOX_PATH" || "$container" == "oci" ]]; then
+  hostname=$(cat /etc/hostname)
+  export PS1="$hostname $PS1"
+else
+  unalias vi
+fi
+
