@@ -1,6 +1,6 @@
 export ZSH=~/.oh-my-zsh
 export SSH_KEY_PATH="~/.ssh/id_ed25519"
-export EDITOR=/usr/bin/nvim
+export EDITOR=/usr/bin/vi
 export GITLAB_HOST=git.ag.ch
 export DOTFILES=$HOME/.dotfiles.git
 export NPM_PACKAGES="$HOME/.npm-packages"

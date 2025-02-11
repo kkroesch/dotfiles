@@ -20,15 +20,14 @@ alias please="sudo"
 alias mkpass="openssl rand -base64 24"
 alias 2y="jq -r yamlify2"
 alias lc="tr '[:upper:]' '[:lower:]'"
-alias vi="nvim"
 
 # Vi Shortcuts
-alias vi="nvim"
 alias vif='vi $(fzf -e --height=15)'
 
 # Flatpak Shortcuts
 alias code="flatpak run com.visualstudio.code"
 alias zed="flatpak run dev.zed.Zed"
+alias vi="flatpak run io.neovim.nvim"
 
 # Doom Emacs
 alias emacsd="/usr/bin/emacs --daemon &"
