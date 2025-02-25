@@ -110,3 +110,5 @@ if [[ -n "$TOOLBOX_PATH" || "$container" == "oci" ]]; then
 else
   unalias vi
 fi
+
+hash starship 2>/dev/null && eval "$(starship init zsh)"
