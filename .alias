@@ -30,10 +30,10 @@ alias zed="flatpak run dev.zed.Zed"
 alias vi="flatpak run io.neovim.nvim"
 
 # Doom Emacs
-alias emacsd="/usr/bin/emacs --daemon &"
-alias emacs="/usr/bin/emacsclient -c -a 'emacs' &"
-alias doom=".config/emacs/bin/doom"
-alias nemacs="/usr/bin/emacs -nw"
+#alias emacsd="/usr/bin/emacs --daemon &"
+#alias emacs="/usr/bin/emacsclient -c -a 'emacs' &"
+#alias doom=".config/emacs/bin/doom"
+#alias nemacs="/usr/bin/emacs -nw"
 
 alias mutt="neomutt"
 

@@ -3,7 +3,7 @@ TIMESTAMP=$(date +'%a-%Y-%m-%d')
 SRC="/home"
 DEST="/var/backup"
 
-btrfs subvolume snapshot -r "$SRC" "${DEST}/home-${TIMESTAMP}"
+sudo btrfs subvolume snapshot -r "$SRC" "${DEST}/home-${TIMESTAMP}"
 
 #find "${DEST}" -name "home-*" -mtime +30 -exec rm -rf {} \;
 

@@ -20,6 +20,7 @@ plugins=(
     kubectl
     systemd
     ansible
+    docker
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -102,10 +103,10 @@ fi
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 bindkey '^R' fzf-history-widget
 
+# Handle Toolbox realted issues for Fedora Silverblue
 if [[ -n "$TOOLBOX_PATH" || "$container" == "oci" ]]; then
   container=$(source /run/.containerenv; echo $name)
   export PS1="[$container] $PS1"
 else
   unalias vi
 fi
-
