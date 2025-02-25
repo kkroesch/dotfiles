@@ -1,0 +1,8 @@
+export KUBECTL_VSPHERE_PASSWORD="$(gopass ktag/vsphere)"
+
+no_proxy=10.7.171.34 kubectl-vsphere login \
+    -u kkrr \
+    --server=10.7.171.34  \
+    --tanzu-kubernetes-cluster-name itag-dev-ads1 \
+    --tanzu-kubernetes-cluster-namespace cluster-tanzu-sv1-ads-dev1
+kubectl config set-context --current --namespace=sre-data
