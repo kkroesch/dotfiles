@@ -50,6 +50,8 @@ fi
 source ~/.libshell/python.sh
 source ~/.libshell/postgres.sh
 
+# Kubernetes
+hash kubectl 2>/dev/null && source <(kubectl completion zsh) && alias k="kubectl"
 
 path+=("$HOME/.libshell")
 path+=("$HOME/.local/bin")
@@ -76,12 +78,6 @@ source ~/.alias
 # Use zmv: https://coderwall.com/p/yepegw/mass-renaming-files-with-zmv-zsh
 autoload -U zmv
 
-
-# Display host name when logged in remotely
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    PS1="${HOST} $PS1"
-fi
-
 # Turn off all beeps
 unsetopt BEEP
 
@@ -103,6 +99,17 @@ fi
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 bindkey '^R' fzf-history-widget
 
+#
+# Prompt Manipulation
+#
+
+hash starship 2>/dev/null && eval "$(starship init zsh)"
+
+# Display host name when logged in remotely
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    PS1="${HOST} $PS1"
+fi
+
 # Handle Toolbox realted issues for Fedora Silverblue
 if [[ -n "$TOOLBOX_PATH" || "$container" == "oci" ]]; then
   container=$(source /run/.containerenv; echo $name)
@@ -111,4 +118,3 @@ else
   unalias vi
 fi
 
-hash starship 2>/dev/null && eval "$(starship init zsh)"
