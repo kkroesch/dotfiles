@@ -103,18 +103,24 @@ bindkey '^R' fzf-history-widget
 # Prompt Manipulation
 #
 
-hash starship 2>/dev/null && eval "$(starship init zsh)"
+hash starship 2>/dev/null && eval "$(starship init zsh)" && precmd() { echo ""; }
 
 # Display host name when logged in remotely
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     PS1="${HOST} $PS1"
 fi
 
-# Handle Toolbox realted issues for Fedora Silverblue
+# Handle Toolbox related issues for Fedora Silverblue
 if [[ -n "$TOOLBOX_PATH" || "$container" == "oci" ]]; then
   container=$(source /run/.containerenv; echo $name)
   export PS1="[$container] $PS1"
+  if [[ "$container" == "kube" ]]
+  then
+      source ~/kube/kube-ps1.sh && PROMPT='$(kube_ps1)'${PROMPT}
+  fi
 else
   unalias vi
 fi
+
+
 
