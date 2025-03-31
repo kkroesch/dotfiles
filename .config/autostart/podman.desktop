@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=flatpak run io.podman_desktop.PodmanDesktop
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name=Podman Desktop

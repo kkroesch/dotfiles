@@ -52,6 +52,7 @@ source ~/.libshell/postgres.sh
 
 # Kubernetes
 hash kubectl 2>/dev/null && source <(kubectl completion zsh) && alias k="kubectl"
+path+=("${KREW_ROOT:-$HOME/.krew}/bin")
 
 path+=("$HOME/.libshell")
 path+=("$HOME/.local/bin")
@@ -116,7 +117,9 @@ if [[ -n "$TOOLBOX_PATH" || "$container" == "oci" ]]; then
   export PS1="[$container] $PS1"
   if [[ "$container" == "kube" ]]
   then
-      source ~/kube/kube-ps1.sh && PROMPT='$(kube_ps1)'${PROMPT}
+      #source ~/kube/kube-ps1.sh && PROMPT='$(kube_ps1)'${PROMPT}
+      $HOME/kube/kubie ctx
+      alias kubectl="$HOME/kube/kubecolor"
   fi
 else
   unalias vi
