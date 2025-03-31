@@ -1,0 +1,29 @@
+[Data Source]
+DisplayName=karsten@kroesch.ch
+Enabled=true
+Parent=e994f2968b4cb468846f3419301131757ae16a02
+
+[Mail Submission]
+SentFolder=folder://local/Sent
+TransportUid=5fc0963d17b9e2a9c5b85ceca53943164b04700f
+RepliesToOriginFolder=false
+UseSentFolder=true
+
+[Mail Composition]
+Bcc=
+Cc=
+DraftsFolder=folder://local/Drafts
+ReplyStyle=default
+SignImip=true
+TemplatesFolder=
+StartBottom=inconsistent
+TopSignature=inconsistent
+Language=
+
+[Mail Identity]
+Address=karsten@kroesch.ch
+Aliases=
+Name=Karsten Kroesch
+Organization=
+ReplyTo=
+SignatureUid=none

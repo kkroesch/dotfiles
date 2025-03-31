@@ -1,0 +1,29 @@
+[Data Source]
+DisplayName=kkroesch@gmail.com
+Enabled=true
+Parent=5d69ea4798dfd1f47ea510c16b5c238b6cf0f8ff
+
+[Mail Submission]
+SentFolder=folder://local/Sent
+TransportUid=8549fa2f8cd5944cca9750d9684e0eaf67f24af9
+RepliesToOriginFolder=false
+UseSentFolder=true
+
+[Mail Composition]
+Bcc=
+Cc=
+DraftsFolder=folder://local/Drafts
+ReplyStyle=default
+SignImip=true
+TemplatesFolder=
+StartBottom=inconsistent
+TopSignature=inconsistent
+Language=
+
+[Mail Identity]
+Address=kkroesch@gmail.com
+Aliases=
+Name=
+Organization=
+ReplyTo=
+SignatureUid=none
