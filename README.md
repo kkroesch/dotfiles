@@ -18,20 +18,17 @@ installation can easily be performed via Ansible (playbooks are located in
 looks like:
 
 ```bash
-mkdir $HOME/.dotfiles  
-export DOTFILES=$HOME/.dotfiles.git # Or choose any other preferred location
-git init --bare $DOTFILES
-cd $DOTFILES
-git config init.defaultBranch master
-git remote add origin git@github.com:kkroesch/dotfiles.git
-cd
-# For convenience, add:
-echo 'export DOTFILES=${DOTFILES}' >> .zshenv
-echo 'alias dotfile="git --git-dir=$DOTFILES --work-tree=$HOME"' >> .alias
-dotfile config --local status.showUntrackedFiles no  # to ignore all the other stuff in $HOME
-
-# Finally, get the stuff:
-dotfile pull origin main
+su $USER -c 'bash -c "
+      export DOTFILES=\$HOME/.dotfiles.git && \
+      git init --bare \$DOTFILES && \
+      git --git-dir=\$DOTFILES --work-tree=\$HOME config init.defaultBranch main && \
+      git --git-dir=\$DOTFILES --work-tree=\$HOME remote add origin https://github.com/kkroesch/dotfiles.git && \
+      echo \"export DOTFILES=\$DOTFILES\" >> \$HOME/.zshenv && \
+      echo \"alias dotfile=\\\"git --git-dir=\$DOTFILES --work-tree=\$HOME\\\"\" >> \$HOME/.alias && \
+      git --git-dir=\$DOTFILES --work-tree=\$HOME config --local status.showUntrackedFiles no && \
+      rm .zshenv .alias .zshrc && \                               
+      git --git-dir=\$DOTFILES --work-tree=\$HOME pull origin main
+    "'
 ```
 
 Use `dotfile add` and `dotfile commit` to add your own dotfiles.
