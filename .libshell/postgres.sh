@@ -51,7 +51,7 @@ EOF
 echo $SQL
 
     read -r -d '' SQL <<-EOF
-	-- Zugriff auf die Datenbank ifür Superuser gewähren
+	-- Zugriff auf die Datenbank für Superuser gewähren
 	GRANT CONNECT ON DATABASE ${database} TO dbadmin;
 	-- Zu der spezifischen Datenbank wechseln
 	\c ${database}
