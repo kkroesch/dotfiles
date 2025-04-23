@@ -25,9 +25,9 @@ alias lc="tr '[:upper:]' '[:lower:]'"
 alias vif='vi $(fzf -e --height=15)'
 
 # Flatpak Shortcuts
-alias code="flatpak run com.visualstudio.code"
-alias zed="flatpak run dev.zed.Zed"
-alias vi="flatpak run io.neovim.nvim"
+#alias code="flatpak run com.visualstudio.code"
+#alias zed="flatpak run dev.zed.Zed"
+#alias vi="flatpak run io.neovim.nvim"
 
 # Doom Emacs
 #alias emacsd="/usr/bin/emacs --daemon &"

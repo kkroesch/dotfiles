@@ -20,7 +20,6 @@ plugins=(
     kubectl
     systemd
     ansible
-    docker
 )
 
 source $ZSH/oh-my-zsh.sh
