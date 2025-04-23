@@ -3,7 +3,7 @@
 hash lsd 2> /dev/null && alias la="lsd -lAh"
 
 # Dotfiles Management
-export DOTFILES=$HOME/.dotfiles.git
+export DOTFILES=$HOME/.dotfiles
 alias dotfile='git --git-dir=$DOTFILES --work-tree=$HOME'
 function dotsync() {
     dotfile add -u $HOME
