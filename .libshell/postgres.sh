@@ -22,6 +22,7 @@ function pgsuper() {
 function pgdb() {
     # Create a new database with some reasonable users for hardened access.
     database=$1
+    admin_password=$(pwgen)
     read -r -d '' SQL <<-EOF
 	-- Erstelle die Datenbank
 	CREATE DATABASE ${database};
@@ -29,7 +30,7 @@ function pgdb() {
 	CREATE SCHEMA public;
 	CREATE SCHEMA archive;
 	-- Erstelle den Admin-Benutzer
-	CREATE ROLE ${database}_admin WITH LOGIN PASSWORD '$(pwgen)';
+	CREATE ROLE ${database}_admin WITH LOGIN PASSWORD '${admin_password}';
 	GRANT ALL PRIVILEGES ON DATABASE ${database} TO admin;
 	GRANT ALL PRIVILEGES ON SCHEMA public TO ${database}_admin;
 	GRANT ALL PRIVILEGES ON SCHEMA archive TO ${database}_admin;
@@ -61,8 +62,9 @@ echo $SQL
 	GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO dbadmin;
 	-- Standardberechtigungen für zukünftige Tabellen im Schema ändern
 	ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO dbadmin;
-        GRANT USAGE ON SCHEMA public TO ${database}_user;
-	GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO ${database}_user;
 EOF
 echo $SQL
+
+# URL ausgeben
+echo "Connection-URL: postgresql://${database}_admin:${admin_password}127.0.0.1:5432/${database}"
 }
