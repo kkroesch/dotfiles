@@ -1,9 +1,0 @@
-{
-    "initial_working_directory": "~",
-    "help_font_size_points": 11,
-    "text_rendering": "geometricPrecision",
-    "global_theme": "alternate",
-    "font_size_points": 12,
-    "pdf_previewer": "none",
-    "posix_terminal_shell": "bash"
-}

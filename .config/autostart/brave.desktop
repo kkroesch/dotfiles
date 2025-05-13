@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=flatpak run com.brave.Browser
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name=Brave Browser
