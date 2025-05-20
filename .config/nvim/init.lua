@@ -17,3 +17,10 @@ end
 
 require "lazy_setup"
 require "polish"
+
+-- In mappings.lua oder irgendwo in deiner user config
+vim.keymap.set("n", "<leader>cb", function()
+  local keys = "i```\r\r```<Esc>k"
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
+end, { desc = "Insert Markdown code block" })
+
